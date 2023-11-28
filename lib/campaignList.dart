@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_ofb/formList.dart';
 
 void main() {
   runApp(const CampaignList());
@@ -22,6 +23,18 @@ class _CampaignListState extends State<CampaignList>{
       ),
       body: Column(
 
+      ),
+      floatingActionButton: Container(
+        alignment: Alignment.bottomCenter,
+        child: ElevatedButton(
+            child: const Text('Lets go !'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FormList()),
+              );
+            }
+        ),
       ),
     );
   }

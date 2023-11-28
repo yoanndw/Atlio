@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: const Text("Créer une nouvelle campagne"),
-            )
+            ),
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
