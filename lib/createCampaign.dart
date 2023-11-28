@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_ofb/createForm.dart';
 
 void main() {
   runApp(const CreateCampaign());
@@ -18,10 +19,22 @@ class _CreateCampaignState extends State<CreateCampaign>{
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Création d'une nouvelle campagne"),
+        title: const Text("Création d'une nouvelle campagne"),
       ),
       body: Column(
 
+      ),
+      floatingActionButton: Container(
+        alignment: Alignment.bottomCenter,
+        child: ElevatedButton(
+          child: const Text('Lets go !'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CreateForm()),
+              );
+            }
+        ),
       ),
     );
   }
