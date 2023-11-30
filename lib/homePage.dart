@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_ofb/campaignList.dart';
 import 'package:project_ofb/createCampaign.dart';
 import 'package:project_ofb/profile.dart';
+import 'package:project_ofb/map.dart';
 
 void main() {
   runApp(const MyApp());
@@ -126,6 +127,14 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: const Text("Créer une nouvelle campagne"),
+            ),
+            ElevatedButton(
+              onPressed: () {Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Map()),
+              );
+              },
+              child: const Text("MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP"),
             ),
           ],
         ),
