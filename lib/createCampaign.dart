@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_ofb/CampaignList.dart';
+import 'package:project_ofb/campaignList.dart';
 
 void main() {
   runApp(const CreateCampaign());
