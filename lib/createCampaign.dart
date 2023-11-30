@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:project_ofb/campaignList.dart';
 
 void main() {
@@ -16,25 +17,31 @@ class CreateCampaign extends StatefulWidget{
 class _CreateCampaignState extends State<CreateCampaign>{
 
   final titreController = TextEditingController();
-  final dateDebutController = TextEditingController();
-  final dateFinController = TextEditingController();
+  DateTime dateDebut = DateTime.now();
+  DateTime dateFin = DateTime.now();
   final descriptionController = TextEditingController();
   final territoireController = TextEditingController();
   final groupesTaxonomiquesController = TextEditingController();
   final fichesController = TextEditingController();
+
 
   @override
   void dispose() {
     // Clean up the controller when the widget is removed from the widget tree.
     // This also removes the _printLatestValue listener.
     titreController.dispose();
-    dateDebutController.dispose();
-    dateFinController.dispose();
     descriptionController.dispose();
     territoireController.dispose();
     groupesTaxonomiquesController.dispose();
     fichesController.dispose();
     super.dispose();
+  }
+
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    dateDebut = args.value.startDate;
+    if(args.value.endDate != null){
+      dateFin = args.value.endDate;
+    }
   }
 
   @override
@@ -56,18 +63,6 @@ class _CreateCampaignState extends State<CreateCampaign>{
             ),
             TextField(
               decoration: const InputDecoration(
-                  hintText: "Date de début"
-              ),
-              controller: dateDebutController,
-            ),
-            TextField(
-              decoration: const InputDecoration(
-                  hintText: "Date de fin"
-              ),
-              controller: dateFinController,
-            ),
-            TextField(
-              decoration: const InputDecoration(
                   hintText: "Description"
               ),
               controller: descriptionController,
@@ -84,6 +79,17 @@ class _CreateCampaignState extends State<CreateCampaign>{
               ),
               controller: groupesTaxonomiquesController,
             ),
+            Container(
+              // Adjust the height and width of the container to control the size of the date picker
+              height: 200, // Adjust the height as needed
+              width: 300, // Adjust the width as needed
+              child:
+                SfDateRangePicker(
+                  onSelectionChanged: _onSelectionChanged,
+                  selectionMode: DateRangePickerSelectionMode.range,
+                ),
+              ),
+
           ],
         ),
       ),

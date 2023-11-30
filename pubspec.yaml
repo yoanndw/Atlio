@@ -28,7 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  syncfusion_flutter_datepicker: 23.2.6
+  syncfusion_flutter_datepicker: 23.2.4
   flutter_osm_plugin: 0.70.1
   geocoding: ^2.1.1
   flutter:
