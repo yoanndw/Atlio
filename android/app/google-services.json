@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "842648591663",
+    "project_id": "project-ofb",
+    "storage_bucket": "project-ofb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842648591663:android:3bc0553a798055f2db15da",
+        "android_client_info": {
+          "package_name": "com.example.project_ofb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgnCsnXGrNl7ZvFPy76ywC2dp8DghIfxw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

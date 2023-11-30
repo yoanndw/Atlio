@@ -94,9 +94,6 @@ class _AuthentificationState extends State<Authentification> {
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 30),
         child: TextFormField(
-            decoration: const InputDecoration(
-
-            )
             // The validator receives the text that the user has entered.
             validator: (value) {
       if (value == null || value.isEmpty) {
