@@ -5,8 +5,12 @@
 import FlutterMacOS
 import Foundation
 
-import url_launcher_macos
+import cloud_firestore
+import firebase_core
+import path_provider_foundation
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
-  UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
+  FLTFirebaseFirestorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseFirestorePlugin"))
+  FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))
+  PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))
 }
