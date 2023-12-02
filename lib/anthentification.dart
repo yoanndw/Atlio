@@ -66,61 +66,99 @@ class _AuthentificationState extends State<Authentification> {
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .inversePrimary,
-        title: const Text("Anthentification"),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-        Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 30),
-        child: TextFormField(
-          // The validator receives the text that the user has entered.
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
-            }
-            return null;
-          },
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text("Anthentification"),
         ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 30),
-        child: TextFormField(
-            // The validator receives the text that the user has entered.
-            validator: (value) {
-      if (value == null || value.isEmpty) {
-      return 'Please enter some text';
-      }
-      return null;
-      },
-      ),
-    ),
-    Padding(
-    padding: const EdgeInsets.symmetric(vertical: 85, horizontal: 40),
-    child: ElevatedButton(
-    onPressed: () {
-    // Validate returns true if the form is valid, or false otherwise.
-    if (_formKey.currentState!.validate()) {
-    // If the form is valid, display a snackbar. In the real world,
-    // you'd often call a server or save the information in a database.
-    ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('Processing Data')),
-    );
-    }
-    },
-    child: const Text('Connexion'),
-    ),
-    ),
-    ],
-    ),)
-    );
+        body: Form(
+          key: _formKey,
+          child: Column(
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              DefaultTextStyle.merge(
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+                child: Text('Content de vous revoir ! 👋'),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 50, bottom: 16, left: 30, right: 30),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    //filled: true,
+                    //fillColor: Colors.lightBlueAccent,
+                    labelText: "Nom d'utilisateur",
+                  ),
+                  // The validator receives the text that the user has entered.
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Entrez un nom d'utilisateur valide";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 30),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    // enabledBorder: OutlineInputBorder(
+                    //   borderSide: BorderSide(
+                    //       //width: 1, color: Colors.black12
+                    //       ),
+                    // ),
+                    //filled: true,
+                    // Rend le fond rempli
+                    //fillColor: Colors.lightBlueAccent,
+                    // Couleur de fond personnalisée
+                    // Autres propriétés de décoration
+                    labelText: 'Mot de passe',
+                    //labelStyle: TextStyle(color: Colors.green),
+                    // hintText: 'Hint text',
+                    // hintStyle: TextStyle(color: Colors.orange)
+                  ),
+                  // The validator receives the text that the user has entered.
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Entrez un mot de passe";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
+                child: SizedBox(
+                  width: double.infinity, // <-- match_parent
+                  // height: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12), // <-- Radius
+                      ),
+                    ),
+                    onPressed: () {
+                      // Validate returns true if the form is valid, or false otherwise.
+                      if (_formKey.currentState!.validate()) {
+                        // If the form is valid, display a snackbar. In the real world,
+                        // you'd often call a server or save the information in a database.
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Processing Data')),
+                        );
+                      }
+                    },
+                    child: const Text('Connexion'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }
