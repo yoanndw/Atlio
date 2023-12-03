@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_ofb/campaignList.dart';
 import 'package:project_ofb/createCampaign.dart';
+import 'package:project_ofb/createForm.dart';
 import 'package:project_ofb/map.dart';
 import 'package:project_ofb/profile.dart';
 
@@ -127,6 +128,14 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: const Text("Créer une nouvelle campagne"),
+            ),
+            ElevatedButton(
+              onPressed: () {Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CreateForm()),
+              );
+              },
+              child: const Text("Créer une nouvelle fiche"),
             ),
             ElevatedButton(
               onPressed: () {Navigator.push(
