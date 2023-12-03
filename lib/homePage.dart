@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_ofb/campaignList.dart';
 import 'package:project_ofb/createCampaign.dart';
-import 'package:project_ofb/profile.dart';
 import 'package:project_ofb/map.dart';
+import 'package:project_ofb/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue.shade900),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade300),
         useMaterial3: true,
       ),
       home: const HomePage(title: 'Home Page'),
