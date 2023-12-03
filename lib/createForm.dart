@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
+//import 'package:camera/camera.dart';
 import 'package:geocoding/geocoding.dart';
 
 class CreateForm extends StatefulWidget {
@@ -15,7 +15,7 @@ class _CreateFormState extends State<CreateForm> {
   double? _lat, _lon;
   String? _lieu;
   final DateTime _dateHeure = DateTime.timestamp();
-  List<XFile> _photos = [];
+  //List<XFile> _photos = [];
   String? _observation;
   int? _campagne, _utilisateur;
 
