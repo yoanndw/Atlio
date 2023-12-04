@@ -22,6 +22,15 @@ class _ProfileState extends State<Profile> {
           title: Text("Robert Chapeau"),
         ),
         body: SizedBox.expand(
+            child: Container(
+          // Set the background image
+          height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/fox.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -33,56 +42,69 @@ class _ProfileState extends State<Profile> {
                   child: Image.asset(
                     'assets/profil.png',
                     height: 100,
-                    width: 100,
+                        width: 100,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 0, bottom: 0),
-                child: DefaultTextStyle.merge(
-                  style: const TextStyle(
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0, bottom: 0),
+                    child: DefaultTextStyle.merge(
+                      style: const TextStyle(
+                        color: Colors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
-                  child: Text('Robert Chapeau'),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
+                      child: Text('Robert Chapeau'),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        Column(
+                          children: [
                         DefaultTextStyle.merge(
                           style: const TextStyle(
+                            color: Colors.white,
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
                           child: Text('12'),
                         ),
-                        Text("Fiches")
-                      ],
-                    ),
-                    Column(
-                      children: [
                         DefaultTextStyle.merge(
                           style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                          child: Text('Fiches'),
+                        )
+                      ],
+                        ),
+                        Column(
+                          children: [
+                        DefaultTextStyle.merge(
+                          style: const TextStyle(
+                            color: Colors.white,
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
                           child: Text('9'),
                         ),
-                        Text("Campagnes")
+                        DefaultTextStyle.merge(
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                          child: Text('Campagnes'),
+                        )
                       ],
-                    )
-                  ],
-                ),
-              ),
-              DisplayFiles(campagnName: 'campagnName'),
-              DisplayFiles(campagnName: 'campagnName'),
-              DisplayFiles(campagnName: 'campagnName')
-              // InkWell(
+                        )
+                      ],
+                    ),
+                  ),
+                  DisplayFiles(campagnName: 'campagnName'),
+                  DisplayFiles(campagnName: 'campagnName'),
+                  DisplayFiles(campagnName: 'campagnName')
+                  // InkWell(
               //   onTap: () {
               //     // navigateSecondPage(EditImagePage());
               //   },
@@ -93,6 +115,6 @@ class _ProfileState extends State<Profile> {
               // ),
             ],
           ),
-        ));
+        )));
   }
 }
