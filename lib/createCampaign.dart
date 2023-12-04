@@ -91,86 +91,95 @@ class _CreateCampaignState extends State<CreateCampaign> {
         title: const Text("Création d'une nouvelle campagne"),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Align(
-            alignment: Alignment.center,
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: (screenSize.width / 2 < minFieldWidth)
-                        ? minFieldWidth
-                        : screenSize.width / 2,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: "Titre",
+        child: Container(
+          // Set the background image
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/background_image.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Align(
+              alignment: Alignment.center,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: (screenSize.width / 2 < minFieldWidth)
+                          ? minFieldWidth
+                          : screenSize.width / 2,
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          hintText: "Titre",
+                        ),
+                        controller: titreController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez remplir ce champ';
+                          }
+                          return null;
+                        },
                       ),
-                      controller: titreController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez remplir ce champ';
-                        }
-                        return null;
-                      },
                     ),
-                  ),
-                  SizedBox(
-                    width: (screenSize.width / 2 < minFieldWidth)
-                        ? minFieldWidth
-                        : screenSize.width / 2,
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        hintText: "Description",
+                    SizedBox(
+                      width: (screenSize.width / 2 < minFieldWidth)
+                          ? minFieldWidth
+                          : screenSize.width / 2,
+                      child: TextField(
+                        decoration: const InputDecoration(
+                          hintText: "Description",
+                        ),
+                        controller: descriptionController,
                       ),
-                      controller: descriptionController,
                     ),
-                  ),
-                  SizedBox(
-                    width: (screenSize.width / 2 < minFieldWidth)
-                        ? minFieldWidth
-                        : screenSize.width / 2,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: "Territoire",
+                    SizedBox(
+                      width: (screenSize.width / 2 < minFieldWidth)
+                          ? minFieldWidth
+                          : screenSize.width / 2,
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          hintText: "Territoire",
+                        ),
+                        controller: territoireController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez remplir ce champ';
+                          }
+                          return null;
+                        },
                       ),
-                      controller: territoireController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez remplir ce champ';
-                        }
-                        return null;
-                      },
                     ),
-                  ),
-                  SizedBox(
-                    width: (screenSize.width / 2 < minFieldWidth)
-                        ? minFieldWidth
-                        : screenSize.width / 2,
-                    child: MultiSelectDialogField(
-                      items: _animals
-                          .map((e) => MultiSelectItem(e, e.toString()))
-                          .toList(),
-                      listType: MultiSelectListType.CHIP,
-                      onConfirm: (values) {
-                        _selectedAnimals = values;
-                      },
+                    SizedBox(
+                      width: (screenSize.width / 2 < minFieldWidth)
+                          ? minFieldWidth
+                          : screenSize.width / 2,
+                      child: MultiSelectDialogField(
+                        items: _animals
+                            .map((e) => MultiSelectItem(e, e.toString()))
+                            .toList(),
+                        listType: MultiSelectListType.CHIP,
+                        onConfirm: (values) {
+                          _selectedAnimals = values;
+                        },
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: (screenSize.width / 4 < minFieldWidth)
-                        ? minFieldWidth
-                        : screenSize.width / 4,
-                    width: (screenSize.width / 4 < minFieldWidth)
-                        ? minFieldWidth
-                        : screenSize.width / 4,
-                    child: SfDateRangePicker(
-                      onSelectionChanged: _onSelectionChanged,
-                      selectionMode: DateRangePickerSelectionMode.range,
+                    Container(
+                      height: (screenSize.width / 4 < minFieldWidth)
+                          ? minFieldWidth
+                          : screenSize.width / 4,
+                      width: (screenSize.width / 4 < minFieldWidth)
+                          ? minFieldWidth
+                          : screenSize.width / 4,
+                      child: SfDateRangePicker(
+                        onSelectionChanged: _onSelectionChanged,
+                        selectionMode: DateRangePickerSelectionMode.range,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
