@@ -25,6 +25,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
   final fichesController = TextEditingController();
 
   final double minFieldWidth = 300.0;
+  bool _showDatePicker = false;
 
   static final List<String> _animals = [
     "Lion",
@@ -82,6 +83,15 @@ class _CreateCampaignState extends State<CreateCampaign> {
     }
   }
 
+  InputDecoration myInputDecoration(String hintText) {
+    return InputDecoration(
+      hintText: hintText,
+      hintStyle: const TextStyle(color: Colors.black87),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0), // Ajustez ces valeurs pour décaler le texte
+      border: InputBorder.none,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -90,15 +100,16 @@ class _CreateCampaignState extends State<CreateCampaign> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Création d'une nouvelle campagne"),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          // Set the background image
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/background_image.png'),
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        // Set the background image
+        height: screenSize.height,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/background_image.png'),
+            fit: BoxFit.cover,
           ),
+        ),
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Align(
@@ -107,14 +118,17 @@ class _CreateCampaignState extends State<CreateCampaign> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    SizedBox(
+                    Container(
                       width: (screenSize.width / 2 < minFieldWidth)
                           ? minFieldWidth
                           : screenSize.width / 2,
+                      decoration: BoxDecoration(
+                        color: Colors.white54, // Couleur de fond
+                        border: Border.all(color: Colors.white), // Couleur du trait
+                        borderRadius: BorderRadius.circular(10.0), // Coins arrondis
+                      ),
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: "Titre",
-                        ),
+                        decoration: myInputDecoration("Titre"),
                         controller: titreController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -124,25 +138,33 @@ class _CreateCampaignState extends State<CreateCampaign> {
                         },
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(height: 16),
+                    Container(
                       width: (screenSize.width / 2 < minFieldWidth)
                           ? minFieldWidth
                           : screenSize.width / 2,
+                      decoration: BoxDecoration(
+                        color: Colors.white54, // Couleur de fond
+                        border: Border.all(color: Colors.white), // Couleur du trait
+                        borderRadius: BorderRadius.circular(10.0), // Coins arrondis
+                      ),
                       child: TextField(
-                        decoration: const InputDecoration(
-                          hintText: "Description",
-                        ),
+                        decoration: myInputDecoration("Description"),
                         controller: descriptionController,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(height: 16),
+                    Container(
                       width: (screenSize.width / 2 < minFieldWidth)
                           ? minFieldWidth
                           : screenSize.width / 2,
+                      decoration: BoxDecoration(
+                        color: Colors.white54, // Couleur de fond
+                        border: Border.all(color: Colors.white), // Couleur du trait
+                        borderRadius: BorderRadius.circular(10.0), // Coins arrondis
+                      ),
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: "Territoire",
-                        ),
+                        decoration: myInputDecoration("Territoire"),
                         controller: territoireController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -152,11 +174,17 @@ class _CreateCampaignState extends State<CreateCampaign> {
                         },
                       ),
                     ),
+                    const SizedBox(height: 16),
                     SizedBox(
                       width: (screenSize.width / 2 < minFieldWidth)
                           ? minFieldWidth
                           : screenSize.width / 2,
                       child: MultiSelectDialogField(
+                        decoration: BoxDecoration(
+                          color: Colors.white54, // Couleur de fond
+                          border: Border.all(color: Colors.white), // Couleur du trait
+                          borderRadius: BorderRadius.circular(10.0), // Coins arrondis
+                        ),
                         items: _animals
                             .map((e) => MultiSelectItem(e, e.toString()))
                             .toList(),
@@ -164,20 +192,38 @@ class _CreateCampaignState extends State<CreateCampaign> {
                         onConfirm: (values) {
                           _selectedAnimals = values;
                         },
+                        validator: (values) {
+                          if (values == null || values.isEmpty) {
+                            return 'Veuillez sélectionner au moins une espèce.';
+                          }
+                          return null;
+                        },
                       ),
                     ),
-                    Container(
-                      height: (screenSize.width / 4 < minFieldWidth)
-                          ? minFieldWidth
-                          : screenSize.width / 4,
-                      width: (screenSize.width / 4 < minFieldWidth)
-                          ? minFieldWidth
-                          : screenSize.width / 4,
-                      child: SfDateRangePicker(
-                        onSelectionChanged: _onSelectionChanged,
-                        selectionMode: DateRangePickerSelectionMode.range,
+                    const SizedBox(height: 16),
+                    if (_showDatePicker)
+                      SizedBox(
+                        height: (screenSize.width / 4 < minFieldWidth)
+                            ? minFieldWidth
+                            : screenSize.width / 4,
+                        width: (screenSize.width / 4 < minFieldWidth)
+                            ? minFieldWidth
+                            : screenSize.width / 4,
+                        child: SfDateRangePicker(
+                          backgroundColor: Colors.white54,
+                          onSelectionChanged: _onSelectionChanged,
+                          selectionMode: DateRangePickerSelectionMode.range,
+                        ),
+                      )
+                    else
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _showDatePicker = true;
+                          });
+                        },
+                        child: const Text('Afficher le calendrier'),
                       ),
-                    ),
                   ],
                 ),
               ),
