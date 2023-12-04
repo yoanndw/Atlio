@@ -58,11 +58,39 @@ class _CreateCampaignState extends State<CreateCampaign> {
     "Dolphin",
   ];
 
-  final _items = _animals
-      .map((animal) => MultiSelectItem<String>(animal, animal.toString()))
-      .toList();
+  static final List<String> _cities = [
+    "Rennes",
+    "Paris",
+    "Lyon",
+    "Nice",
+    "Lille",
+    "Montpellier",
+    "Quimper",
+    "Brest",
+    "Saint-Brienc",
+    "Pleumeleuc",
+    "Hugo Hamon",
+    "Dinan",
+    "Dinard",
+    "Saint-Malo",
+    "Auray",
+    "Cesson",
+    "Nantes",
+    "Bordeaux",
+    "Verdin",
+    "Le Rheu",
+    "Bruz",
+    "Vern",
+    "Vitrée",
+    "Tour",
+    "Montcuq",
+    "Marseille",
+    "La Rochelle",
+    "Carnac",
+  ];
 
   List<String?> _selectedAnimals = [];
+  List<String?> _selectedCities = [];
 
   @override
   void dispose() {
@@ -154,21 +182,26 @@ class _CreateCampaignState extends State<CreateCampaign> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Container(
+                    SizedBox(
                       width: (screenSize.width / 2 < minFieldWidth)
                           ? minFieldWidth
                           : screenSize.width / 2,
-                      decoration: BoxDecoration(
-                        color: Colors.white54, // Couleur de fond
-                        border: Border.all(color: Colors.white), // Couleur du trait
-                        borderRadius: BorderRadius.circular(10.0), // Coins arrondis
-                      ),
-                      child: TextFormField(
-                        decoration: myInputDecoration("Territoire"),
-                        controller: territoireController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Veuillez remplir ce champ';
+                      child: MultiSelectDialogField(
+                        decoration: BoxDecoration(
+                          color: Colors.white54, // Couleur de fond
+                          border: Border.all(color: Colors.white), // Couleur du trait
+                          borderRadius: BorderRadius.circular(10.0), // Coins arrondis
+                        ),
+                        items: _cities
+                            .map((e) => MultiSelectItem(e, e.toString()))
+                            .toList(),
+                        listType: MultiSelectListType.CHIP,
+                        onConfirm: (values) {
+                          _selectedCities = values;
+                        },
+                        validator: (values) {
+                          if (values == null || values.isEmpty) {
+                            return 'Veuillez sélectionner au moins une ville.';
                           }
                           return null;
                         },
