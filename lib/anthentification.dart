@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue.shade900),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade300),
         useMaterial3: true,
       ),
       home: const Authentification(title: 'Authentification'),
@@ -70,95 +70,118 @@ class _AuthentificationState extends State<Authentification> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text("Anthentification"),
         ),
-        body: Form(
-          key: _formKey,
-          child: Column(
-            //crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              DefaultTextStyle.merge(
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-                child: Text('Content de vous revoir ! 👋'),
+        body: Container(
+            // Set the background image
+            height: MediaQuery.of(context).size.height,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/sunflower.png'),
+                fit: BoxFit.cover,
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 50, bottom: 16, left: 30, right: 30),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    //filled: true,
-                    //fillColor: Colors.lightBlueAccent,
-                    labelText: "Nom d'utilisateur",
+            ),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                //crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  DefaultTextStyle.merge(
+                    style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                    child: Text('Content de vous revoir ! 👋'),
                   ),
-                  // The validator receives the text that the user has entered.
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Entrez un nom d'utilisateur valide";
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 30),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    // enabledBorder: OutlineInputBorder(
-                    //   borderSide: BorderSide(
-                    //       //width: 1, color: Colors.black12
-                    //       ),
-                    // ),
-                    //filled: true,
-                    // Rend le fond rempli
-                    //fillColor: Colors.lightBlueAccent,
-                    // Couleur de fond personnalisée
-                    // Autres propriétés de décoration
-                    labelText: 'Mot de passe',
-                    //labelStyle: TextStyle(color: Colors.green),
-                    // hintText: 'Hint text',
-                    // hintStyle: TextStyle(color: Colors.orange)
-                  ),
-                  // The validator receives the text that the user has entered.
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Entrez un mot de passe";
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
-                child: SizedBox(
-                  width: double.infinity, // <-- match_parent
-                  // height: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12), // <-- Radius
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 50, bottom: 16, left: 30, right: 30),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white54,
+                        // Couleur de fond
+                        border: Border.all(color: Colors.white),
+                        // Couleur du trait
+                        borderRadius:
+                            BorderRadius.circular(10.0), // Coins arrondis
+                      ),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: "Nom d'utilisateur",
+                          hintStyle: const TextStyle(color: Colors.black87),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 16.0),
+                          // Ajustez ces valeurs pour décaler le texte
+                          border: InputBorder.none,
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez remplir ce champ';
+                          }
+                          return null;
+                        },
                       ),
                     ),
-                    onPressed: () {
-                      // Validate returns true if the form is valid, or false otherwise.
-                      if (_formKey.currentState!.validate()) {
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
-                        );
-                      }
-                    },
-                    child: const Text('Connexion'),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16, horizontal: 30),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white54,
+                        // Couleur de fond
+                        border: Border.all(color: Colors.white),
+                        // Couleur du trait
+                        borderRadius:
+                            BorderRadius.circular(10.0), // Coins arrondis
+                      ),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: "Mot de passe",
+                          hintStyle: const TextStyle(color: Colors.black87),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 16.0),
+                          // Ajustez ces valeurs pour décaler le texte
+                          border: InputBorder.none,
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez remplir ce champ';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 50, horizontal: 30),
+                    child: SizedBox(
+                      width: double.infinity, // <-- match_parent
+                      // height: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(12), // <-- Radius
+                          ),
+                        ),
+                        onPressed: () {
+                          // Validate returns true if the form is valid, or false otherwise.
+                          if (_formKey.currentState!.validate()) {
+                            // If the form is valid, display a snackbar. In the real world,
+                            // you'd often call a server or save the information in a database.
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Processing Data')),
+                            );
+                          }
+                        },
+                        child: const Text('Connexion'),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ));
+            )));
   }
 }
