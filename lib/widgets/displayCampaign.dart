@@ -17,67 +17,71 @@ class DisplayCampaign extends StatelessWidget {
     // TODO Image image = campagne.fiches.isNotEmpty ? campagne.fiches.elementAt(0).pho.
 
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-        textStyle: TextStyle(color: Colors.black87),
-        backgroundColor: Colors.white54,
-        // Couleur de fond
-        side: const BorderSide(
-          color: Colors.white,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0), // <-- Radius
-        ),
-      ),
-      onPressed: () {
-        // TODO changer la redirection
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const HomePage(title: 'hahahaha')),
-        );
-      },
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Icon(Icons.insert_photo_outlined)
-                // TODO child: Image.asset(
-                //   'assets/profil.png',
-                //   height: 75,
-                //   width: 75,
-                // ),
-                ),
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+          textStyle: TextStyle(color: Colors.black87),
+          backgroundColor: Colors.white54,
+          // Couleur de fond
+          side: const BorderSide(
+            color: Colors.white,
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DefaultTextStyle.merge(
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                child: Text('Nom de la campagne'),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DefaultTextStyle.merge(
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0), // <-- Radius
+          ),
+        ),
+        onPressed: () {
+          // TODO changer la redirection
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const HomePage(title: 'hahahaha')),
+          );
+        },
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Container(
+                    decoration: BoxDecoration(color: Colors.white70),
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Icon(Icons.insert_photo_outlined),
                     ),
-                    child: Text(campagne.titre),
+                  )
+                  // TODO Image.asset(
+                  //           'assets/profil.png',
+                  //           height: 75,
+                  //           width: 75,
+                  //         ),
                   ),
-                  Text(campagne.territoire
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DefaultTextStyle.merge(
+                  style: const TextStyle(
+                    color: Colors.black87,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  child: Text(campagne.titre),
+                ),
+                DefaultTextStyle.merge(
+                  style: const TextStyle(
+                    color: Colors.black87,
+                  ),
+                  child: Text(campagne.territoire
                       .toString()
                       .substring(1, campagne.territoire.toString().length - 1)),
-                  Text(campagne.dateDebut.day.toString() +
+                ),
+                DefaultTextStyle.merge(
+                  style: const TextStyle(
+                    color: Colors.black87,
+                  ),
+                  child: Text(campagne.dateDebut.day.toString() +
                       "/" +
                       campagne.dateDebut.month.toString() +
                       "/" +
@@ -87,13 +91,11 @@ class DisplayCampaign extends StatelessWidget {
                       "/" +
                       campagne.dateFin.month.toString() +
                       "/" +
-                      campagne.dateFin.year.toString())
-                ],
-              )
-            ],
-          )
-        ],
-      ),
-    );
+                      campagne.dateFin.year.toString()),
+                ),
+              ],
+            )
+          ],
+        ));
   }
 }
