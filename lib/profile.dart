@@ -110,7 +110,8 @@ class _ProfileState extends State<Profile> {
                               utilisateur: 0,
                               positionGps: {},
                               lieu: '',
-                              dateHeure: DateTime(2017))),
+                              dateHeure: DateTime(2017),
+                              photos: [])),
                       DisplayFiles(
                           fiche: Fiche(
                               campagneName: 'Nom de campagne',
@@ -118,7 +119,8 @@ class _ProfileState extends State<Profile> {
                               utilisateur: 0,
                               positionGps: {},
                               lieu: '',
-                              dateHeure: DateTime(2017))),
+                              dateHeure: DateTime(2017),
+                              photos: [])),
                       DisplayFiles(
                           fiche: Fiche(
                               campagneName: 'Nom de campagne',
@@ -126,7 +128,8 @@ class _ProfileState extends State<Profile> {
                               utilisateur: 0,
                               positionGps: {},
                               lieu: '',
-                              dateHeure: DateTime(2017))),
+                              dateHeure: DateTime(2017),
+                              photos: [])),
                       DisplayFiles(
                           fiche: Fiche(
                               campagneName: 'Nom de campagne',
@@ -134,7 +137,8 @@ class _ProfileState extends State<Profile> {
                               utilisateur: 0,
                               positionGps: {},
                               lieu: '',
-                              dateHeure: DateTime(2017))),
+                              dateHeure: DateTime(2017),
+                              photos: [])),
                       DisplayFiles(
                           fiche: Fiche(
                               campagneName: 'Nom de campagne',
@@ -142,7 +146,8 @@ class _ProfileState extends State<Profile> {
                               utilisateur: 0,
                               positionGps: {},
                               lieu: '',
-                              dateHeure: DateTime(2017))),
+                              dateHeure: DateTime(2017),
+                              photos: [])),
                       DisplayFiles(
                           fiche: Fiche(
                               campagneName: 'Nom de campagne',
@@ -150,7 +155,8 @@ class _ProfileState extends State<Profile> {
                               utilisateur: 0,
                               positionGps: {},
                               lieu: '',
-                              dateHeure: DateTime(2017))),
+                              dateHeure: DateTime(2017),
+                              photos: [])),
                       DisplayFiles(
                           fiche: Fiche(
                               campagneName: 'Nom de campagne',
@@ -158,7 +164,8 @@ class _ProfileState extends State<Profile> {
                               utilisateur: 0,
                               positionGps: {},
                               lieu: '',
-                              dateHeure: DateTime(2017))),
+                              dateHeure: DateTime(2017),
+                              photos: [])),
                       // InkWell(
                       //   onTap: () {
                       //     // navigateSecondPage(EditImagePage());
