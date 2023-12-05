@@ -15,7 +15,7 @@ class Map extends StatefulWidget{
 
 }
 
-class _MapState extends State<Map>{
+class _MapState extends State<Map> with OSMMixinObserver {
 
 
   // default constructor
@@ -30,6 +30,20 @@ class _MapState extends State<Map>{
 
   );
 
+  @override
+  void onSingleTap(GeoPoint position) {
+    // TODO: implement onSingleTap
+    print(
+        "GNEUIBGIRENGUIREGIPERIUGBERIPUGBERIUGBERIUGBIUERBGIREGUIEBGUIREHGUIREHGIUERHGUIREHGUIERMHVUREIVHREUIHGUIERHVIENVIEUR");
+    super.onSingleTap(position);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.addObserver(this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +124,12 @@ class _MapState extends State<Map>{
             )
         )
     );
+  }
+
+  @override
+  Future<void> mapIsReady(bool isReady) {
+    // TODO: implement mapIsReady
+    throw UnimplementedError();
   }
 
 }

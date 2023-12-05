@@ -162,12 +162,14 @@ class _HomePageState extends State<HomePage> {
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.inversePrimary,
                         ),
-                        child: const Text(
+                        child: const Center(
+                          child :Text(
                           'Menu',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,
                           ),
+                        ),
                         ),
                       ),
                     ),
@@ -215,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Authentification(title: 'Hi',)),
+                          MaterialPageRoute(builder: (context) => const Authentification(title: 'Authentification',)),
                         );
                       },
                     ),

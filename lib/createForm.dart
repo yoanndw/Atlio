@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
-
-//import 'package:camera/camera.dart';
 import 'package:geocoding/geocoding.dart';
 
 class CreateForm extends StatefulWidget {
@@ -21,11 +19,14 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver {
   String? _lieu;
   final DateTime _dateHeure = DateTime.timestamp();
 
-  //List<XFile> _photos = [];
   String? _observation;
   int? _campagne, _utilisateur;
 
   List<Widget> _imagePreviews = [];
+
+  bool _isMapVisible = true; // État pour suivre la visibilité de la carte
+
+  final double minFieldWidth = 300.0;
 
   final utilisateurs = [1, 2, 3];
   final campagne = 1;
@@ -59,7 +60,6 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver {
       hintStyle: const TextStyle(color: Colors.black87),
       contentPadding:
           const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-      // Ajustez ces valeurs pour décaler le texte
       border: InputBorder.none,
     );
   }
@@ -68,100 +68,172 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text("Création d'une nouvelle fiche."),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text("Création d'une nouvelle fiche."),
+      ),
+      body: Container(
+        // Set the background image
+        height: screenSize.height,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/savane.png'),
+            fit: BoxFit.cover,
+          ),
         ),
-        body: Column(
-          children: [
-            Form(
-                key: _formKey,
-                child: Column(children: [
-                  TextFormField(
-                    decoration: myInputDecoration("Entrez votre observation"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Veuillez entrer une observation';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      // Callback appelé à chaque modification de texte
-                    },
-                  ),
-                  ElevatedButton(
-                    onPressed: _pickImages,
-                    child: const Text('Select images'),
-                  ),
-                  // Afficher les aperçus des images sélectionnées
-                  if (_imagePreviews.isNotEmpty)
-                    SingleChildScrollView(
-                      child: SizedBox(
-                        height: 100,
-                        width: screenSize.width / 2,
-                        child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            // Nombre de colonnes dans la grille
-                            crossAxisSpacing: 8.0,
-                            // Espacement horizontal entre les éléments de la grille
-                            mainAxisSpacing:
-                                8.0, // Espacement vertical entre les éléments de la grille
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Align(
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white70,
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          itemCount: _imagePreviews.length,
-                          itemBuilder: (context, index) {
-                            return _imagePreviews[index];
-                          },
+                          width: (screenSize.width / 2 < minFieldWidth)
+                              ? minFieldWidth
+                              : screenSize.width / 2,
+                          height: 200,
+                          child: SingleChildScrollView(
+                            child: TextFormField(
+                              decoration:
+                                  myInputDecoration("Entrez votre observation"),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Veuillez entrer une observation';
+                                }
+                                return null;
+                              },
+                              maxLines: null,
+                              onChanged: (value) {},
+                            ),
+                          ),
                         ),
-                      ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        ElevatedButton(
+                          onPressed: _pickImages,
+                          child: const Text('Select images'),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        if (_imagePreviews.isNotEmpty)
+                          SingleChildScrollView(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white70,
+                                border: Border.all(color: Colors.black),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              height: 200,
+                              width: (screenSize.width / 2 < minFieldWidth)
+                                  ? minFieldWidth
+                                  : screenSize.width / 2,
+                              child: GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 4.0,
+                                  mainAxisSpacing: 4.0,
+                                ),
+                                itemCount: _imagePreviews.length,
+                                itemBuilder: (context, index) {
+                                  return _imagePreviews[index];
+                                },
+                              ),
+                            ),
+                          ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _isMapVisible = !_isMapVisible;
+                            });
+                          },
+                          child: Text(_isMapVisible
+                              ? 'Masquer la carte'
+                              : 'Afficher la carte'),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        if (_isMapVisible)
+                          Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white70,
+                                border: Border.all(color: Colors.black),
+                                borderRadius: BorderRadius.circular(0.0),
+                              ),
+                              height: (screenSize.width / 2 < minFieldWidth)
+                                  ? minFieldWidth
+                                  : screenSize.width / 2,
+                              width: (screenSize.width / 2 < minFieldWidth)
+                                  ? minFieldWidth
+                                  : screenSize.width / 2,
+                              child: OSMFlutter(
+                                controller: controller,
+                                osmOption: OSMOption(
+                                  userTrackingOption: const UserTrackingOption(
+                                    enableTracking: true,
+                                    unFollowUser: false,
+                                  ),
+                                  zoomOption: const ZoomOption(
+                                    initZoom: 8,
+                                    minZoomLevel: 3,
+                                    maxZoomLevel: 19,
+                                    stepZoom: 1.0,
+                                  ),
+                                  userLocationMarker: UserLocationMaker(
+                                    personMarker: const MarkerIcon(
+                                      icon: Icon(
+                                        Icons.location_history_rounded,
+                                        color: Colors.red,
+                                        size: 48,
+                                      ),
+                                    ),
+                                    directionArrowMarker: const MarkerIcon(
+                                      icon: Icon(
+                                        Icons.double_arrow,
+                                        size: 48,
+                                      ),
+                                    ),
+                                  ),
+                                  roadConfiguration: const RoadOption(
+                                    roadColor: Colors.yellowAccent,
+                                  ),
+                                  markerOption: MarkerOption(
+                                    defaultMarker: const MarkerIcon(
+                                      icon: Icon(
+                                        Icons.person_pin_circle,
+                                        color: Colors.blue,
+                                        size: 56,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )),
+                      ],
                     ),
-                  SizedBox(
-                      height: screenSize.height / 1.5,
-                      width: screenSize.width / 1.5,
-                      child: OSMFlutter(
-                          controller: controller,
-                          osmOption: OSMOption(
-                            userTrackingOption: const UserTrackingOption(
-                              enableTracking: true,
-                              unFollowUser: false,
-                            ),
-                            zoomOption: const ZoomOption(
-                              initZoom: 8,
-                              minZoomLevel: 3,
-                              maxZoomLevel: 19,
-                              stepZoom: 1.0,
-                            ),
-                            userLocationMarker: UserLocationMaker(
-                              personMarker: const MarkerIcon(
-                                icon: Icon(
-                                  Icons.location_history_rounded,
-                                  color: Colors.red,
-                                  size: 48,
-                                ),
-                              ),
-                              directionArrowMarker: const MarkerIcon(
-                                icon: Icon(
-                                  Icons.double_arrow,
-                                  size: 48,
-                                ),
-                              ),
-                            ),
-                            roadConfiguration: const RoadOption(
-                              roadColor: Colors.yellowAccent,
-                            ),
-                            markerOption: MarkerOption(
-                                defaultMarker: const MarkerIcon(
-                              icon: Icon(
-                                Icons.person_pin_circle,
-                                color: Colors.blue,
-                                size: 56,
-                              ),
-                            )),
-                          ))),
-                ])),
-          ],
-        ));
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -189,18 +261,14 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver {
     );
 
     if (result != null && result.files.isNotEmpty) {
-      // L'utilisateur a sélectionné des images, vous pouvez traiter les fichiers ici
-      _imagePreviews.clear(); // Effacer les aperçus précédents
-
+      _imagePreviews.clear();
       for (PlatformFile file in result.files) {
-        // Créer un aperçu de l'image
         _imagePreviews.add(
           Image.memory(file.bytes!, width: 100, height: 100),
         );
       }
     }
 
-    setState(
-        () {}); // Rafraîchir l'interface pour afficher les nouveaux aperçus
+    setState(() {});
   }
 }
