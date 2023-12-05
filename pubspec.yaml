@@ -29,7 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   syncfusion_flutter_datepicker: ^23.2.6
-  flutter_osm_plugin: ^0.70.3
+  flutter_osm_plugin: 0.34.0
   geocoding: ^2.1.1
   flutter:
     sdk: flutter

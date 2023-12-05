@@ -7,7 +7,7 @@ void main() {
   runApp(const Map());
 }
 
-class Map extends StatefulWidget{
+class Map extends StatefulWidget {
   const Map({super.key});
 
   @override
@@ -15,7 +15,7 @@ class Map extends StatefulWidget{
 
 }
 
-class _MapState extends State<Map>{
+class _MapState extends State<Map> {
 
 
   // default constructor
@@ -25,7 +25,7 @@ class _MapState extends State<Map>{
       east: 10.4922941,
       north: 47.8084648,
       south: 45.817995,
-      west:  5.9559113,
+      west: 5.9559113,
     ),
 
   );
@@ -34,80 +34,64 @@ class _MapState extends State<Map>{
   @override
   Widget build(BuildContext context) {
     controller.addMarker(GeoPoint(latitude: 48.083328, longitude: -1.68333),
-        markerIcon:const MarkerIcon(
-          icon: Icon(
-            Icons.location_history_rounded,
-            color: Colors.red,
-            size: 48,
-          )),
-        angle:pi/3,
-      iconAnchor: IconAnchor(anchor: Anchor.top,)
+        markerIcon: const MarkerIcon(
+            icon: Icon(
+              Icons.location_history_rounded,
+              color: Colors.red,
+              size: 48,
+            )),
+        angle: pi / 3
     );
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text("Map View"),
+          backgroundColor: Theme
+              .of(context)
+              .colorScheme
+              .inversePrimary,
+          title: const Text("Map View"),
         ),
         body: OSMFlutter(
-            controller: controller,
-            osmOption: OSMOption(
-              userTrackingOption: const UserTrackingOption(
-                enableTracking: true,
-                unFollowUser: false,
+          controller: controller,
+          trackMyPosition: false,
+          initZoom: 12,
+          minZoomLevel: 8,
+          maxZoomLevel: 14,
+          stepZoom: 1.0,
+          userLocationMarker: UserLocationMaker(
+            personMarker: const MarkerIcon(
+              icon: Icon(
+                Icons.location_history_rounded,
+                color: Colors.red,
+                size: 48,
               ),
-              staticPoints: [
-
-                StaticPositionGeoPoint("idididid", const MarkerIcon(
-                  icon: Icon(
-                    Icons.add_a_photo,
-                    color: Colors.red,
-                    size: 48,
-                  )
+            ),
+            directionArrowMarker: const MarkerIcon(
+              icon: Icon(
+                Icons.double_arrow,
+                size: 48,
+              ),
+            ),
+          ),
+          roadConfiguration: RoadConfiguration(
+            startIcon: const MarkerIcon(
+              icon: Icon(
+                Icons.person,
+                size: 64,
+                color: Colors.brown,
+              ),
+            ),
+            roadColor: Colors.yellowAccent,
+          ),
+          markerOption: MarkerOption(
+              defaultMarker: const MarkerIcon(
+                icon: Icon(
+                  Icons.person_pin_circle,
+                  color: Colors.blue,
+                  size: 56,
                 ),
-                    [
-                      GeoPoint(latitude: 48.083328, longitude: -1.68333),
-                      GeoPoint(latitude: 47.083328, longitude: -1.68333),
-                      GeoPoint(latitude: 46.083328, longitude: -1.68333),
-                      GeoPoint(latitude: 45.083328, longitude: -1.68333),
-                    ]
-                )
-              ],
-              zoomOption: const ZoomOption(
-                initZoom: 8,
-                minZoomLevel: 3,
-                maxZoomLevel: 19,
-                stepZoom: 1.0,
-              ),
-              userLocationMarker: UserLocationMaker(
-                personMarker: const MarkerIcon(
-                  icon: Icon(
-                    Icons.location_history_rounded,
-                    color: Colors.red,
-                    size: 48,
-                  ),
-                ),
-                directionArrowMarker: const MarkerIcon(
-                  icon: Icon(
-                    Icons.double_arrow,
-                    size: 48,
-                  ),
-                ),
-              ),
-              roadConfiguration: const RoadOption(
-                roadColor: Colors.yellowAccent,
-              ),
-              markerOption: MarkerOption(
-                  defaultMarker: const MarkerIcon(
-                    icon: Icon(
-                      Icons.person_pin_circle,
-                      color: Colors.blue,
-                      size: 56,
-                    ),
-                  )
-              ),
-
-            )
+              )
+          ),
         )
     );
   }
