@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 //import 'package:camera/camera.dart';
@@ -19,6 +22,7 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver{
   //List<XFile> _photos = [];
   String? _observation;
   int? _campagne, _utilisateur;
+  List<File> _images = [];
 
   final utilisateurs = [1, 2, 3];
   final campagne = 1;
@@ -80,6 +84,11 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver{
                     },
                   ),
                   ElevatedButton(onPressed: _updateLocation, child: Text('Mettre à jour lieu')),
+                  ElevatedButton(
+                    onPressed: _pickImages,
+                    child: Text('Select images'),
+                  ),
+
                   Container(
                       height: 300,
                       child : OSMFlutter(
@@ -153,4 +162,16 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver{
 
   }
 
+
+  Future<void> _pickImages() async {
+    FilePickerResult? files = await FilePicker.platform.pickFiles(
+        allowMultiple: true,
+        allowedExtensions: ['jpg', 'png', 'jpeg'],
+    );
+    if (files != null) {
+      setState(() {
+        _images = files.paths.map((path) => File(path!)).toList();
+      });
+    }
+  }
 }
