@@ -124,13 +124,22 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Bienvenue sur OFB',
+                        'Bienvenue sur ATLIO',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 70.0, // Ajustez la taille du texte selon vos besoins
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      SizedBox(height: 60,),
+                      Text(
+                        'Votre atlas de biodiversité.',
+                        style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30.0, // Ajustez la taille du texte selon vos besoins
+                        fontWeight: FontWeight.bold,
+                      ),
+                      )
                     ],
                   ),
                 ),
