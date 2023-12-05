@@ -7,7 +7,7 @@ import 'package:project_ofb/profile.dart';
 
 import 'authentification.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 

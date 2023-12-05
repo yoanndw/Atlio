@@ -18,6 +18,6 @@ class Fiche {
       required this.positionGps,
       required this.lieu,
       required this.dateHeure,
-      // TODO DECOMMENTER required this.photos,
+      required this.photos,
       this.observation});
 }

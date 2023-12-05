@@ -28,11 +28,10 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_osm_plugin: 0.34.0
   syncfusion_flutter_datepicker: 23.1.40
-  flutter_osm_plugin: 0.60.4
   geocoding: ^2.1.1
   multi_select_flutter: 4.1.3
-  file_picker: ^6.1.1
   flutter:
     sdk: flutter
 
@@ -40,9 +39,9 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  camera: ^0.10.5+5
   path_provider: ^2.1.1
   path: ^1.8.3
+  file_picker: 3.0.2
 
 dev_dependencies:
   flutter_test:
