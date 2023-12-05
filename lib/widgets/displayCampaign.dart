@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../homePage.dart';
 import '../model/campagne.dart';
 
 class DisplayCampaign extends StatelessWidget {
@@ -14,12 +16,27 @@ class DisplayCampaign extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO Image image = campagne.fiches.isNotEmpty ? campagne.fiches.elementAt(0).pho.
 
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 5),
-      decoration: BoxDecoration(
-          border: Border.symmetric(
-              horizontal: BorderSide(color: Colors.grey.shade200, width: 1),
-              vertical: BorderSide.none)),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        textStyle: TextStyle(color: Colors.black87),
+        backgroundColor: Colors.white54,
+        // Couleur de fond
+        side: const BorderSide(
+          color: Colors.white,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0), // <-- Radius
+        ),
+      ),
+      onPressed: () {
+        // TODO changer la redirection
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const HomePage(title: 'hahahaha')),
+        );
+      },
       child: Row(
         children: [
           Padding(
@@ -43,25 +60,39 @@ class DisplayCampaign extends StatelessWidget {
             children: [
               DefaultTextStyle.merge(
                 style: const TextStyle(
+                  color: Colors.black87,
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
-                child: Text(campagne.titre),
+                child: Text('Nom de la campagne'),
               ),
-              Text(campagne.territoire
-                  .toString()
-                  .substring(1, campagne.territoire.toString().length - 1)),
-              Text(campagne.dateDebut.day.toString() +
-                  "/" +
-                  campagne.dateDebut.month.toString() +
-                  "/" +
-                  campagne.dateDebut.year.toString() +
-                  " - " +
-                  campagne.dateFin.day.toString() +
-                  "/" +
-                  campagne.dateFin.month.toString() +
-                  "/" +
-                  campagne.dateFin.year.toString())
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DefaultTextStyle.merge(
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    child: Text(campagne.titre),
+                  ),
+                  Text(campagne.territoire
+                      .toString()
+                      .substring(1, campagne.territoire.toString().length - 1)),
+                  Text(campagne.dateDebut.day.toString() +
+                      "/" +
+                      campagne.dateDebut.month.toString() +
+                      "/" +
+                      campagne.dateDebut.year.toString() +
+                      " - " +
+                      campagne.dateFin.day.toString() +
+                      "/" +
+                      campagne.dateFin.month.toString() +
+                      "/" +
+                      campagne.dateFin.year.toString())
+                ],
+              )
             ],
           )
         ],
