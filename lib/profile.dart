@@ -24,8 +24,8 @@ class _ProfileState extends State<Profile> {
         ),
         body: SizedBox.expand(
             child: Container(
-          // Set the background image
-          height: MediaQuery.of(context).size.height,
+                // Set the background image
+                height: MediaQuery.of(context).size.height,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/fox.png'),
