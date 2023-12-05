@@ -199,6 +199,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
                         onConfirm: (values) {
                           _selectedCities = values;
                         },
+                        searchable: true,
                         validator: (values) {
                           if (values == null || values.isEmpty) {
                             return 'Veuillez sélectionner au moins une ville.';
@@ -225,6 +226,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
                         onConfirm: (values) {
                           _selectedAnimals = values;
                         },
+                        searchable: true,
                         validator: (values) {
                           if (values == null || values.isEmpty) {
                             return 'Veuillez sélectionner au moins une espèce.';
