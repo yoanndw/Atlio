@@ -16,7 +16,7 @@ class DisplayFiles extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
         textStyle: TextStyle(color: Colors.black87),
         backgroundColor: Colors.white54,
         // Couleur de fond
@@ -38,15 +38,22 @@ class DisplayFiles extends StatelessWidget {
       child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(50),
-              child: Image.asset(
-                'assets/profil.png',
-                height: 75,
-                width: 75,
-              ),
-            ),
+                borderRadius: BorderRadius.circular(50),
+                child: Container(
+                  decoration: BoxDecoration(color: Colors.white70),
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Icon(Icons.insert_photo_outlined),
+                  ),
+                )
+                // Image.asset(
+                //           'assets/profil.png',
+                //           height: 75,
+                //           width: 75,
+                //         ),
+                ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
