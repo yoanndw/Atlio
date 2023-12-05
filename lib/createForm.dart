@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+
 //import 'package:camera/camera.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -13,16 +14,18 @@ class CreateForm extends StatefulWidget {
   State<CreateForm> createState() => _CreateFormState();
 }
 
-class _CreateFormState extends State<CreateForm> with OSMMixinObserver{
+class _CreateFormState extends State<CreateForm> with OSMMixinObserver {
   final _formKey = GlobalKey<FormState>();
 
   double? _lat, _lon;
   String? _lieu;
   final DateTime _dateHeure = DateTime.timestamp();
+
   //List<XFile> _photos = [];
   String? _observation;
   int? _campagne, _utilisateur;
-  List<File> _images = [];
+
+  List<Widget> _imagePreviews = [];
 
   final utilisateurs = [1, 2, 3];
   final campagne = 1;
@@ -37,7 +40,6 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver{
     ),
   );
 
-
   @override
   void initState() {
     controller.addObserver(this);
@@ -51,47 +53,73 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver{
     });
   }
 
+  InputDecoration myInputDecoration(String hintText) {
+    return InputDecoration(
+      hintText: hintText,
+      hintStyle: const TextStyle(color: Colors.black87),
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+      // Ajustez ces valeurs pour décaler le texte
+      border: InputBorder.none,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text("Création d'une nouvelle fiche."),
         ),
-        body:
-        Column(
+        body: Column(
           children: [
             Form(
                 key: _formKey,
                 child: Column(children: [
-                  Text('Lieu: $_lieu'),
                   TextFormField(
-                      decoration: const InputDecoration(hintText: 'Observations'),
-                      onChanged: (v) {
-                        setState(() {
-                          _observation = v;
-                        });
-                      }),
-                  DropdownMenu<int>(
-                    dropdownMenuEntries: utilisateurs
-                        .map((e) => DropdownMenuEntry(value: e, label: e.toString()))
-                        .toList(),
-                    controller: TextEditingController(),
-                    onSelected: (v) {
-                      setState(() {
-                        _utilisateur = v;
-                      });
+                    decoration: myInputDecoration("Entrez votre observation"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Veuillez entrer une observation';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      // Callback appelé à chaque modification de texte
                     },
                   ),
-                  ElevatedButton(onPressed: _updateLocation, child: Text('Mettre à jour lieu')),
                   ElevatedButton(
                     onPressed: _pickImages,
-                    child: Text('Select images'),
+                    child: const Text('Select images'),
                   ),
-
-                  Container(
-                      height: 300,
-                      child : OSMFlutter(
+                  // Afficher les aperçus des images sélectionnées
+                  if (_imagePreviews.isNotEmpty)
+                    SingleChildScrollView(
+                      child: SizedBox(
+                        height: 100,
+                        width: screenSize.width / 2,
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            // Nombre de colonnes dans la grille
+                            crossAxisSpacing: 8.0,
+                            // Espacement horizontal entre les éléments de la grille
+                            mainAxisSpacing:
+                                8.0, // Espacement vertical entre les éléments de la grille
+                          ),
+                          itemCount: _imagePreviews.length,
+                          itemBuilder: (context, index) {
+                            return _imagePreviews[index];
+                          },
+                        ),
+                      ),
+                    ),
+                  SizedBox(
+                      height: screenSize.height / 1.5,
+                      width: screenSize.width / 1.5,
+                      child: OSMFlutter(
                           controller: controller,
                           osmOption: OSMOption(
                             userTrackingOption: const UserTrackingOption(
@@ -124,22 +152,16 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver{
                             ),
                             markerOption: MarkerOption(
                                 defaultMarker: const MarkerIcon(
-                                  icon: Icon(
-                                    Icons.person_pin_circle,
-                                    color: Colors.blue,
-                                    size: 56,
-                                  ),
-                                )
-                            ),
-                          )
-                      )
-                  ),
-                ]
-                )
-            ),
-          ]
-          ,)
-    );
+                              icon: Icon(
+                                Icons.person_pin_circle,
+                                color: Colors.blue,
+                                size: 56,
+                              ),
+                            )),
+                          ))),
+                ])),
+          ],
+        ));
   }
 
   @override
@@ -150,28 +172,35 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver{
   @override
   void onSingleTap(GeoPoint position) {
     super.onSingleTap(position);
-    if(_lat != null) {
+    if (_lat != null) {
       controller.removeMarker(GeoPoint(latitude: _lat!, longitude: _lon!));
     }
     _lat = position.latitude;
     _lon = position.longitude;
-    controller.addMarker(GeoPoint(latitude: position.latitude, longitude: position.longitude));
-
-    print('update lat $_lat');
-    print('update lon $_lon');
-
+    controller.addMarker(
+        GeoPoint(latitude: position.latitude, longitude: position.longitude));
   }
 
-
   Future<void> _pickImages() async {
-    FilePickerResult? files = await FilePicker.platform.pickFiles(
-        allowMultiple: true,
-        allowedExtensions: ['jpg', 'png', 'jpeg'],
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'png', 'jpeg'],
+      allowMultiple: true,
     );
-    if (files != null) {
-      setState(() {
-        _images = files.paths.map((path) => File(path!)).toList();
-      });
+
+    if (result != null && result.files.isNotEmpty) {
+      // L'utilisateur a sélectionné des images, vous pouvez traiter les fichiers ici
+      _imagePreviews.clear(); // Effacer les aperçus précédents
+
+      for (PlatformFile file in result.files) {
+        // Créer un aperçu de l'image
+        _imagePreviews.add(
+          Image.memory(file.bytes!, width: 100, height: 100),
+        );
+      }
     }
+
+    setState(
+        () {}); // Rafraîchir l'interface pour afficher les nouveaux aperçus
   }
 }
