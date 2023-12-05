@@ -5,6 +5,8 @@ import 'package:project_ofb/createForm.dart';
 import 'package:project_ofb/map.dart';
 import 'package:project_ofb/profile.dart';
 
+import 'authentification.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -18,21 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Home Page',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
+
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade300),
         useMaterial3: true,
       ),
@@ -146,6 +134,15 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/logo.png',
+              width: 100,
+              height: 100,
+            ),
+          ),
           if (_isMenuOpen)
             Container(
               color: Colors.transparent,
@@ -175,7 +172,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     ListTile(
-                      title: Text('Liste des campagnes'),
+                      title: const Text('Liste des campagnes'),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -185,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     ListTile(
-                      title: Text('Créer une nouvelle campagne'),
+                      title: const Text('Créer une nouvelle campagne'),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -195,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     ListTile(
-                      title: Text('Créer une nouvelle fiche'),
+                      title: const Text('Créer une nouvelle fiche'),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -205,11 +202,20 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     ListTile(
-                      title: Text('MAP'),
+                      title: const Text('MAP'),
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const Map()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      title: const Text('Deconnexion'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Authentification(title: 'Hi',)),
                         );
                       },
                     ),
