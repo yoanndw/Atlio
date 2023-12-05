@@ -32,7 +32,7 @@ class DisplayFiles extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => const HomePage(title: 'hahahaha')),
+              builder: (context) => const HomePage(title: 'HomePage',)),
         );
       },
       child: Row(
