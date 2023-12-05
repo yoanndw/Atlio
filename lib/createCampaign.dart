@@ -283,7 +283,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
                 );
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                     content: Text('Veuillez sélectionner une plage de dates.'),
                   ),
                 );

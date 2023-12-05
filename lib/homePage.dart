@@ -152,7 +152,6 @@ class _HomePageState extends State<HomePage> {
             ),
           if (_isMenuOpen)
             Container(
-              color: Colors.transparent,
               width: (screenSize.width / 5 < minFieldWidth )
                   ? minFieldWidth
                   : screenSize.width / 5,

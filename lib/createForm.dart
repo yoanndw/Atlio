@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:geocoding/geocoding.dart';
 
+import 'formList.dart';
+
 class CreateForm extends StatefulWidget {
   const CreateForm({super.key});
 
@@ -231,6 +233,35 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver {
               ),
             ),
           ),
+        ),
+      ),
+      floatingActionButton: Container(
+        alignment: Alignment.bottomCenter,
+        child: ElevatedButton(
+          onPressed: () {
+            if (_formKey.currentState!.validate()) {
+              if (_imagePreviews.isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Veuillez sélectionner au moins une image.'),
+                  ),
+                );
+              } else if (_lat == null || _lon == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                        'Veuillez sélectionner une position sur la carte.'),
+                  ),
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FormList()),
+                );
+              }
+            }
+          },
+          child: const Text('Valider'),
         ),
       ),
     );
