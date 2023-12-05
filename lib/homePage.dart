@@ -68,15 +68,6 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
-        leading: IconButton(
-          onPressed: () {
-            setState(() {
-              _isMenuOpen = !_isMenuOpen;
-            });
-          },
-          icon: const Icon(Icons.menu),
-          tooltip: 'Menu',
-        ),
         actions: <Widget>[
           IconButton(
             onPressed: () {
@@ -93,7 +84,6 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           Container(
-            height: screenSize.height,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/sunflower.png'),
@@ -143,6 +133,23 @@ class _HomePageState extends State<HomePage> {
               height: 100,
             ),
           ),
+          if (!_isMenuOpen)
+            Positioned(
+              left: 18.0, // Ajustez la position horizontale à votre besoin
+              top: 30.0, // Ajustez la position verticale à votre besoin
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    _isMenuOpen = !_isMenuOpen;
+                  });
+                },
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.white, // Ajoutez la couleur que vous souhaitez ici
+                ),
+                tooltip: 'Menu',
+              ),
+            ),
           if (_isMenuOpen)
             Container(
               color: Colors.transparent,
@@ -162,15 +169,27 @@ class _HomePageState extends State<HomePage> {
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.inversePrimary,
                         ),
-                        child: const Center(
-                          child :Text(
-                          'Menu',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
+                        child: Row(
+                          children: [
+                            IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _isMenuOpen = !_isMenuOpen;
+                              });
+                            },
+                            icon: const Icon(Icons.menu),
+                            tooltip: 'Menu',
                           ),
-                        ),
-                        ),
+                          const Center(
+                            child :Text(
+                              'Menu',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                              ),
+                            ),
+                          ),
+                        ],)
                       ),
                     ),
                     ListTile(
