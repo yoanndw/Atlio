@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'model/fiche.dart';
 import 'widgets/displayProfilesFiles.dart';
 
 void main() {
@@ -97,14 +98,35 @@ class _ProfileState extends State<Profile> {
                           child: Text('Campagnes'),
                         )
                       ],
-                        )
-                      ],
-                    ),
-                  ),
-                  DisplayFiles(campagnName: 'campagnName'),
-                  DisplayFiles(campagnName: 'campagnName'),
-                  DisplayFiles(campagnName: 'campagnName')
-                  // InkWell(
+                    )
+                  ],
+                ),
+              ),
+              DisplayFiles(
+                  fiche: Fiche(
+                      campagneName: 'Nom de campagne',
+                      campagne: 0,
+                      utilisateur: 0,
+                      positionGps: {},
+                      lieu: '',
+                      dateHeure: DateTime(2017))),
+              DisplayFiles(
+                  fiche: Fiche(
+                      campagneName: 'Nom de campagne',
+                      campagne: 0,
+                      utilisateur: 0,
+                      positionGps: {},
+                      lieu: '',
+                      dateHeure: DateTime(2017))),
+              DisplayFiles(
+                  fiche: Fiche(
+                      campagneName: 'Nom de campagne',
+                      campagne: 0,
+                      utilisateur: 0,
+                      positionGps: {},
+                      lieu: '',
+                      dateHeure: DateTime(2017))),
+              // InkWell(
               //   onTap: () {
               //     // navigateSecondPage(EditImagePage());
               //   },
