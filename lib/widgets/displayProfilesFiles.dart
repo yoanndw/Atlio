@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_ofb/showForm.dart';
 
-import '../homePage.dart';
 import '../model/fiche.dart';
 
 class DisplayFiles extends StatelessWidget {
@@ -28,10 +28,12 @@ class DisplayFiles extends StatelessWidget {
         ),
       ),
       onPressed: () {
-        // TODO changer la redirection
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
+          MaterialPageRoute(
+              builder: (context) => ShowForm(
+                    fiche: fiche,
+                  )),
         );
       },
       child: Row(

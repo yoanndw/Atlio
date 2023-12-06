@@ -15,6 +15,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  //TODO supprimer la liste
+  List<String> images = List.filled(1, 'assets/profil.png');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,67 +108,28 @@ class _ProfileState extends State<Profile> {
                       ),
                       DisplayFiles(
                           fiche: Fiche(
+                              user: "Rober lfnierlighn",
                               campagneName: 'Nom de campagne',
                               campagne: 0,
                               utilisateur: 0,
                               positionGps: {},
-                              lieu: '',
+                              lieu: 'Auray la street',
                               dateHeure: DateTime(2017),
-                              photos: [])),
+                              photos: images,
+                              observation:
+                                  "Une petite observation très peu complète malheureusement")),
                       DisplayFiles(
                           fiche: Fiche(
+                              user: "Rober lfnierlighn",
                               campagneName: 'Nom de campagne',
                               campagne: 0,
                               utilisateur: 0,
                               positionGps: {},
-                              lieu: '',
+                              lieu: 'Auray la street',
                               dateHeure: DateTime(2017),
-                              photos: [])),
-                      DisplayFiles(
-                          fiche: Fiche(
-                              campagneName: 'Nom de campagne',
-                              campagne: 0,
-                              utilisateur: 0,
-                              positionGps: {},
-                              lieu: '',
-                              dateHeure: DateTime(2017),
-                              photos: [])),
-                      DisplayFiles(
-                          fiche: Fiche(
-                              campagneName: 'Nom de campagne',
-                              campagne: 0,
-                              utilisateur: 0,
-                              positionGps: {},
-                              lieu: '',
-                              dateHeure: DateTime(2017),
-                              photos: [])),
-                      DisplayFiles(
-                          fiche: Fiche(
-                              campagneName: 'Nom de campagne',
-                              campagne: 0,
-                              utilisateur: 0,
-                              positionGps: {},
-                              lieu: '',
-                              dateHeure: DateTime(2017),
-                              photos: [])),
-                      DisplayFiles(
-                          fiche: Fiche(
-                              campagneName: 'Nom de campagne',
-                              campagne: 0,
-                              utilisateur: 0,
-                              positionGps: {},
-                              lieu: '',
-                              dateHeure: DateTime(2017),
-                              photos: [])),
-                      DisplayFiles(
-                          fiche: Fiche(
-                              campagneName: 'Nom de campagne',
-                              campagne: 0,
-                              utilisateur: 0,
-                              positionGps: {},
-                              lieu: '',
-                              dateHeure: DateTime(2017),
-                              photos: [])),
+                              photos: images,
+                              observation:
+                                  "Une petite observation très peu complète malheureusement")),
                       // InkWell(
                       //   onTap: () {
                       //     // navigateSecondPage(EditImagePage());

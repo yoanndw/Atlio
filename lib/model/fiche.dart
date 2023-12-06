@@ -1,14 +1,13 @@
-//import 'package:camera/camera.dart';
 
-import 'dart:ui';
 
 class Fiche {
   Map<String, double> positionGps; // { "lat": X, "lon": Y }
   String campagneName;
+  String user;
   String lieu;
   DateTime dateHeure;
-  List<Image> photos = [];
-  String? observation;
+  List<String> photos = [];
+  String observation;
   int campagne, utilisateur;
 
   Fiche(
@@ -19,5 +18,6 @@ class Fiche {
       required this.lieu,
       required this.dateHeure,
       required this.photos,
-      this.observation});
+      required this.observation,
+      required this.user});
 }
