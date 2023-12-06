@@ -6,15 +6,14 @@ class Campagne {
   String description;
   List<String> territoire;
   List<String> groupesTaxonomiques;
-  List<int> fiches;
 
-  Campagne({required this.titre,
-    required this.dateDebut,
-    required this.dateFin,
-    required this.description,
-    required this.territoire,
-    required this.groupesTaxonomiques,
-    required this.fiches});
+  Campagne(
+      {required this.titre,
+      required this.dateDebut,
+      required this.dateFin,
+      required this.description,
+      required this.territoire,
+      required this.groupesTaxonomiques});
 
   factory Campagne.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -27,7 +26,6 @@ class Campagne {
       description: data['description'],
       territoire: data['territoire'],
       groupesTaxonomiques: data['groupesTaxonomiques'],
-      fiches: data['fiches'],
     );
   }
 
@@ -39,7 +37,6 @@ class Campagne {
       "description": description,
       "territoire": territoire,
       "groupesTaxonomiques": groupesTaxonomiques,
-      "fiches": fiches,
     };
   }
 }

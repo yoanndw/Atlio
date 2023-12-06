@@ -301,13 +301,13 @@ class _CreateCampaignState extends State<CreateCampaign> {
                 // naviguer vers la prochaine page
 
                 _insertCampaign(Campagne(
-                    titre: titreController.text,
-                    dateDebut: dateDebut,
-                    dateFin: dateFin,
-                    description: descriptionController.text,
-                    territoire: _selectedCities,
-                    groupesTaxonomiques: _selectedAnimals,
-                    fiches: []));
+                  titre: titreController.text,
+                  dateDebut: dateDebut,
+                  dateFin: dateFin,
+                  description: descriptionController.text,
+                  territoire: _selectedCities,
+                  groupesTaxonomiques: _selectedAnimals,
+                ));
 
                 Navigator.push(
                   context,
