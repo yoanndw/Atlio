@@ -140,7 +140,6 @@ class Menu extends StatelessWidget {
                             builder: (context) => CampagneMap(fiches : [
                             Fiche(
                                 user: "Robert Chapeau",
-                                campagneName: 'Nom de campagne',
                                 campagne: 0,
                                 utilisateur: 0,
                                 positionGps: m,

@@ -15,6 +15,7 @@ class ShowForm extends StatefulWidget {
 
 class _ShowFormState extends State<ShowForm> {
   bool _isMenuOpen = false;
+  String? _campaignName;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class _ShowFormState extends State<ShowForm> {
             tooltip: 'Menu',
           ),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.fiche.campagneName),
+          title: Text(_campaignName ?? ''),
           actions: <Widget>[
             IconButton(
               onPressed: () {

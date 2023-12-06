@@ -122,7 +122,6 @@ class _ProfileState extends State<Profile> {
                         DisplayFiles(
                             fiche: Fiche(
                                 user: "Robert Chapeau",
-                                campagneName: 'Nom de campagne',
                                 campagne: 0,
                                 utilisateur: 0,
                                 positionGps: {},
@@ -134,7 +133,6 @@ class _ProfileState extends State<Profile> {
                         DisplayFiles(
                             fiche: Fiche(
                                 user: "Robert Chapeau",
-                                campagneName: 'Nom de campagne',
                                 campagne: 0,
                                 utilisateur: 0,
                                 positionGps: {},

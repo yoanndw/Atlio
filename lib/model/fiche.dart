@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Fiche {
   Map<String, double> positionGps; // { "lat": X, "lon": Y }
-  String campagneName;
   String user;
   String lieu;
   DateTime dateHeure;
@@ -11,8 +10,7 @@ class Fiche {
   int campagne, utilisateur;
 
   Fiche(
-      {required this.campagneName,
-      required this.campagne,
+      {required this.campagne,
       required this.utilisateur,
       required this.positionGps,
       required this.lieu,
@@ -40,7 +38,6 @@ class Fiche {
 
   Map<String, dynamic> toFirestore() {
     return {
-      "campagneName": campagneName,
       "campagne": campagne,
       "utilisateur": utilisateur,
       "positionGps": positionGps,
