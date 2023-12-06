@@ -129,6 +129,7 @@ class _AuthentificationState extends State<Authentification> {
                             BorderRadius.circular(10.0), // Coins arrondis
                       ),
                       child: TextFormField(
+                        obscureText: true,
                         decoration: const InputDecoration(
                           labelText: "Mot de passe",
                           hintStyle: TextStyle(color: Colors.black87),
