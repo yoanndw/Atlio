@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_ofb/profile.dart';
 import 'package:project_ofb/widgets/menu.dart';
 
 import 'model/fiche.dart';
@@ -21,29 +20,8 @@ class _ShowFormState extends State<ShowForm> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              setState(() {
-                _isMenuOpen = !_isMenuOpen;
-              });
-            },
-            icon: const Icon(Icons.menu),
-            tooltip: 'Menu',
-          ),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(_campaignName ?? ''),
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Profile()),
-                );
-              },
-              icon: const Icon(Icons.account_circle_rounded),
-              tooltip: 'Profil',
-            ),
-          ],
         ),
         body: Stack(
           children: [

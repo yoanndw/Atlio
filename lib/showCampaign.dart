@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project_ofb/createForm.dart';
-import 'package:project_ofb/profile.dart';
 import 'package:project_ofb/widgets/displayProfilesFiles.dart';
 import 'package:project_ofb/widgets/menu.dart';
 
@@ -49,18 +48,6 @@ class _ShowCampaignState extends State<ShowCampaign> {
           ),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.campagne.titre),
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Profile()),
-                );
-              },
-              icon: const Icon(Icons.account_circle_rounded),
-              tooltip: 'Profil',
-            ),
-          ],
         ),
         body: Stack(
           children: [
