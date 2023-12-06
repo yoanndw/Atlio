@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
-
+import 'package:flutter/material.dart';
 import 'package:project_ofb/firebase_options.dart';
 import 'package:project_ofb/model/appModel.dart';
-import 'package:project_ofb/profile.dart';
 import 'package:project_ofb/widgets/menu.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,20 +72,7 @@ class _HomePageState extends State<HomePage> {
           tooltip: 'Menu',
         ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Accueil"),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Profile()),
-              );
-            },
-            icon: const Icon(Icons.account_circle_rounded),
-            tooltip: 'Profil',
-          ),
-        ],
-      ),
+        title: Text("Accueil")),
       body: Stack(
         children: [
           Container(

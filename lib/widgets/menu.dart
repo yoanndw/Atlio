@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:project_ofb/homePage.dart';
 import 'package:project_ofb/model/fiche.dart';
+import 'package:project_ofb/profile.dart';
 
-import 'authentification.dart';
 import '../campaignList.dart';
 import '../createCampaign.dart';
-import '../createForm.dart';
 import '../map.dart';
 
 class Menu extends StatelessWidget {
@@ -14,7 +14,7 @@ class Menu extends StatelessWidget {
   // Constructor
   Menu({Key? key, required bool this.isMenuOpen}) : super(key: key);
 
-  Map<String, double> m = {"lat": 48.117266, "lon" : -1.6777926};
+  Map<String, double> m = {"lat": 48.117266, "lon": -1.6777926};
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +47,8 @@ class Menu extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(0.0),
             ),
-            child: ListView(
-              padding: EdgeInsets.zero,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // SizedBox(
                 //   height: 100,
@@ -79,101 +79,134 @@ class Menu extends StatelessWidget {
                 //         ],
                 //       )),
                 // ),
-                Padding(
-                  padding: EdgeInsets.only(left: 15, top: 10),
-                  child: DefaultTextStyle.merge(
-                    style: const TextStyle(
-                      color: Colors.black87,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    child: Text("Menu"),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: ListTile(
-                    title: const Text('Liste des campagnes'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CampaignList()),
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: ListTile(
-                    title: const Text('Créer une nouvelle campagne'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CreateCampaign()),
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: ListTile(
-                    title: const Text('Créer une nouvelle fiche'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CreateForm()),
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: ListTile(
-                    title: const Text('MAP'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CampagneMap(fiches : [
-                            Fiche(
-                                user: "Robert Chapeau",
-                                campagne: 0,
-                                utilisateur: 0,
-                                positionGps: m,
-                                lieu: 'Auray la street',
-                                dateHeure: DateTime(2017),
-                                photos: [
-                                  // "assets/fleur.png"
-                                ],
-                                observation:
-                                "Une petite observation très peu complète malheureusement Une petite observation très peu complète"
-                            ),
-
-                          ])),
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: ListTile(
-                    title: DefaultTextStyle.merge(
-                      style: const TextStyle(
-                        color: Colors.red,
+                // Padding(
+                //   padding: EdgeInsets.only(left: 15, top: 10),
+                //   child: DefaultTextStyle.merge(
+                //     style: const TextStyle(
+                //       color: Colors.black87,
+                //       fontSize: 24,
+                //       fontWeight: FontWeight.w600,
+                //     ),
+                //     child: Text("Menu"),
+                //   ),
+                // ),
+                Column(children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: ListTile(
+                      title: DefaultTextStyle.merge(
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                        child: Text("Accueil"),
                       ),
-                      child: Text("Déconnexion"),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()),
+                        );
+                      },
                     ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Authentification()),
-                      );
-                    },
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: ListTile(
+                      title: DefaultTextStyle.merge(
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                        child: Text("Campagnes"),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CampaignList()),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: ListTile(
+                      title: DefaultTextStyle.merge(
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                        child: Text("Nouvelle campagne"),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CreateCampaign()),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: ListTile(
+                      title: const Text('MAP'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CampagneMap(fiches: [
+                                    Fiche(
+                                        user: "Robert Chapeau",
+                                        campagne: 0,
+                                        utilisateur: 0,
+                                        positionGps: m,
+                                        lieu: 'Auray la street',
+                                        dateHeure: DateTime(2017),
+                                        photos: [
+                                          // "assets/fleur.png"
+                                        ],
+                                        observation:
+                                            "Une petite observation très peu complète malheureusement Une petite observation très peu complète"),
+                                  ])),
+                        );
+                      },
+                    ),
+                  ),
+                ]),
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: ListTile(
+                        leading: Icon(Icons.account_circle_outlined),
+                        title: DefaultTextStyle.merge(
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                          child: Text("Profil"),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Profile()),
+                          );
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: ListTile(
+                        iconColor: Colors.red,
+                        leading: Icon(Icons.logout_outlined),
+                        title: DefaultTextStyle.merge(
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.red,
+                          ),
+                          child: Text("Déconnexion"),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Profile()),
+                          );
+                        },
+                      ),
+                    )
+                  ],
                 )
               ],
             ),
