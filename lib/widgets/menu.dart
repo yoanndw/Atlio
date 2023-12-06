@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:project_ofb/model/fiche.dart';
 
 import 'authentification.dart';
 import '../campaignList.dart';
 import '../createCampaign.dart';
 import '../createForm.dart';
+import '../map.dart';
 
 class Menu extends StatelessWidget {
   final double minFieldWidth = 300.0;
   final bool isMenuOpen;
 
   // Constructor
-  const Menu({Key? key, required bool this.isMenuOpen}) : super(key: key);
+  Menu({Key? key, required bool this.isMenuOpen}) : super(key: key);
+
+  Map<String, double> m = {"lat": 48.117266, "lon" : -1.6777926};
 
   @override
   Widget build(BuildContext context) {
@@ -125,19 +129,35 @@ class Menu extends StatelessWidget {
                     },
                   ),
                 ),
-                // Padding(
-                //   padding: EdgeInsets.only(left: 10),
-                //   child: ListTile(
-                //     title: const Text('MAP'),
-                //     onTap: () {
-                //       Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (context) => const Map()),
-                //       );
-                //     },
-                //   ),
-                // ),
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: ListTile(
+                    title: const Text('MAP'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CampagneMap(fiches : [
+                            Fiche(
+                                user: "Robert Chapeau",
+                                campagneName: 'Nom de campagne',
+                                campagne: 0,
+                                utilisateur: 0,
+                                positionGps: m,
+                                lieu: 'Auray la street',
+                                dateHeure: DateTime(2017),
+                                photos: [
+                                  // "assets/fleur.png"
+                                ],
+                                observation:
+                                "Une petite observation très peu complète malheureusement Une petite observation très peu complète"
+                            ),
+
+                          ])),
+                      );
+                    },
+                  ),
+                ),
                 Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: ListTile(
