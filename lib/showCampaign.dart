@@ -109,7 +109,6 @@ class _ShowCampaignState extends State<ShowCampaign> {
                   DisplayFiles(
                       fiche: Fiche(
                           user: "Robert Chapeau",
-                          campagneName: 'Nom de campagne',
                           campagne: 0,
                           utilisateur: 0,
                           positionGps: {},
