@@ -1,136 +1,159 @@
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+
+// import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:latlong2/latlong.dart';
+
+import 'model/fiche.dart';
 
 void main() {
-  runApp(const Map());
+  runApp(CampagneMap(fiches: [],));
 }
 
-class Map extends StatefulWidget{
-  const Map({super.key});
+class CampagneMap extends StatefulWidget {
+
+  final List<Fiche> fiches;
+  List<Marker> _markers = [];
+
+  CampagneMap({super.key, required this.fiches});
 
   @override
-  State<Map> createState() => _MapState();
-
+  State<CampagneMap> createState() => _CampagneMapState();
 }
 
-class _MapState extends State<Map> with OSMMixinObserver {
+class _CampagneMapState extends State<CampagneMap> /*with OSMMixinObserver*/ {
 
-
-  // default constructor
-  MapController controller = MapController(
-    initPosition: GeoPoint(latitude: 48.083328, longitude: -1.68333),
-    areaLimit: BoundingBox(
-      east: 10.4922941,
-      north: 47.8084648,
-      south: 45.817995,
-      west:  5.9559113,
-    ),
-
-  );
-
-  @override
-  void onSingleTap(GeoPoint position) {
-    // TODO: implement onSingleTap
-    print(
-        "GNEUIBGIRENGUIREGIPERIUGBERIPUGBERIUGBERIUGBIUERBGIREGUIEBGUIREHGUIREHGIUERHGUIREHGUIERMHVUREIVHREUIHGUIERHVIENVIEUR");
-    super.onSingleTap(position);
-  }
+  final Map<Marker, Widget> fiches = HashMap();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller.addObserver(this);
+    // initMarkers();
+    // _markers = _buildMarkers();
+    initMarkers();
+    _popupController = PopupController();
+    //controller.addObserver(this);
   }
+
+  void initMarkers() {
+    for (var i = 0; i < widget.fiches.length; i++) {
+      var currentFiche = widget.fiches[i];
+      Marker marker = Marker(
+          point: LatLng(currentFiche.positionGps["lat"]!, currentFiche.positionGps["lon"]!),
+          width: 80,
+          height: 80,
+          child: Icon(Icons.star)
+      );
+      widget._markers.add(marker);
+
+      if(currentFiche.photos.isEmpty) {
+        fiches[marker] = const Icon(Icons.insert_photo_outlined);
+      } else {
+        fiches[marker] = currentFiche.photos[0] as Widget;
+      }
+    }
+  }
+
+
+  MapController controller = MapController();
+  late final PopupController _popupController;
+
+  List<Marker> _buildMarkers() {
+    return [
+      const Marker(
+        point: LatLng(44.421, 10.404),
+        width: 40,
+        height: 40,
+        child: Icon(
+          Icons.ac_unit,
+          size: 40,
+        ),
+      ),
+      Marker(
+        point: const LatLng(45.683, 10.839),
+        width: 20,
+        height: 40,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black54,
+            border: Border.all(color: Colors.black, width: 0.0),
+            borderRadius: const BorderRadius.all(Radius.elliptical(20, 40)),
+          ),
+          width: 20,
+          height: 40,
+        ),
+      ),
+      Marker(
+        point: const LatLng(45.246, 5.783),
+        width: 40,
+        height: 20,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.blue.withOpacity(0.5),
+            border: Border.all(color: Colors.black, width: 0.0),
+            borderRadius: const BorderRadius.all(Radius.elliptical(40, 20)),
+          ),
+          width: 40,
+          height: 20,
+        ),
+      ),
+    ];
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    controller.addMarker(GeoPoint(latitude: 48.083328, longitude: -1.68333),
-        markerIcon:const MarkerIcon(
-            icon: Icon(
-              Icons.location_history_rounded,
-              color: Colors.red,
-              size: 48,
-            )),
-        angle:pi/3,
-        iconAnchor: IconAnchor(anchor: Anchor.top,)
-    );
-
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text("Map View"),
+      body: FlutterMap(
+        options: MapOptions(
+          initialZoom: 5.0,
+          initialCenter: const LatLng(44.421, 10.404),
+          onTap: (_, __) => _popupController.hideAllPopups(),
         ),
-        body: OSMFlutter(
-            controller: controller,
-            osmOption: OSMOption(
-              userTrackingOption: const UserTrackingOption(
-                enableTracking: true,
-                unFollowUser: false,
-              ),
-              staticPoints: [
-
-                StaticPositionGeoPoint("idididid", const MarkerIcon(
-                    icon: Icon(
-                      Icons.add_a_photo,
-                      color: Colors.red,
-                      size: 48,
-                    )
-                ),
-                    [
-                      GeoPoint(latitude: 48.083328, longitude: -1.68333),
-                      GeoPoint(latitude: 47.083328, longitude: -1.68333),
-                      GeoPoint(latitude: 46.083328, longitude: -1.68333),
-                      GeoPoint(latitude: 45.083328, longitude: -1.68333),
-                    ]
-                )
-              ],
-              zoomOption: const ZoomOption(
-                initZoom: 8,
-                minZoomLevel: 3,
-                maxZoomLevel: 19,
-                stepZoom: 1.0,
-              ),
-              userLocationMarker: UserLocationMaker(
-                personMarker: const MarkerIcon(
-                  icon: Icon(
-                    Icons.location_history_rounded,
-                    color: Colors.red,
-                    size: 48,
-                  ),
-                ),
-                directionArrowMarker: const MarkerIcon(
-                  icon: Icon(
-                    Icons.double_arrow,
-                    size: 48,
-                  ),
-                ),
-              ),
-              roadConfiguration: const RoadOption(
-                roadColor: Colors.yellowAccent,
-              ),
-              markerOption: MarkerOption(
-                  defaultMarker: const MarkerIcon(
-                    icon: Icon(
-                      Icons.person_pin_circle,
-                      color: Colors.blue,
-                      size: 56,
+        children: [
+          TileLayer(
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          ),
+          PopupMarkerLayer(
+            options: PopupMarkerLayerOptions(
+              markerCenterAnimation: const MarkerCenterAnimation(),
+              markers: widget._markers,
+              popupController: _popupController,
+              popupDisplayOptions: PopupDisplayOptions(
+                builder: (BuildContext context, Marker marker) =>
+                    Container(
+                      // decoration: BoxDecoration(
+                      //   color: Colors.blue.withOpacity(0.5),
+                      //   border: Border.all(color: Colors.red, width: 0.0),
+                      //   borderRadius: const BorderRadius.all(Radius.elliptical(40, 20)),
+                      // ),
+                      child: fiches[marker],
+                      width: 80,
+                      height: 80,
                     ),
-                  )
+                animation: const PopupAnimation.fade(
+                    duration: Duration(milliseconds: 700)),
               ),
-
-            )
-        )
+              markerTapBehavior: MarkerTapBehavior.togglePopup(),
+              onPopupEvent: (event, selectedMarkers) {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(event.runtimeType.toString()),
+                    duration: const Duration(seconds: 1),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
-  }
-
-  @override
-  Future<void> mapIsReady(bool isReady) {
-    // TODO: implement mapIsReady
-    throw UnimplementedError();
   }
 
 }
-
