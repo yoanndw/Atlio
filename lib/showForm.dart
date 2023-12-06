@@ -44,10 +44,10 @@ class _ShowFormState extends State<ShowForm> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Column(
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
@@ -95,9 +95,9 @@ class _ShowFormState extends State<ShowForm> {
                   ),
                 ],
               ),
-              Menu(isMenuOpen: _isMenuOpen),
-            ],
-          ),
+            ),
+            Menu(isMenuOpen: _isMenuOpen),
+          ],
         ));
   }
 }
