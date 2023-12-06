@@ -18,37 +18,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Home Page',
       theme: ThemeData(
-
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade300),
         useMaterial3: true,
       ),
-      home: const HomePage(title: 'Home Page'),
+      home: const HomePage(),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
-
-  final String title;
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
   final double minFieldWidth = 300.0;
-  bool _isMenuOpen = true;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+  bool _isMenuOpen = false;
 
   InputDecoration myInputDecoration(String hintText) {
     return InputDecoration(
@@ -66,8 +54,17 @@ class _HomePageState extends State<HomePage> {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            setState(() {
+              _isMenuOpen = !_isMenuOpen;
+            });
+          },
+          icon: const Icon(Icons.menu),
+          tooltip: 'Menu',
+        ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text("Accueil"),
         actions: <Widget>[
           IconButton(
             onPressed: () {
@@ -105,18 +102,20 @@ class _HomePageState extends State<HomePage> {
                         'Bienvenue sur ATLIO',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 70.0, // Ajustez la taille du texte selon vos besoins
+                          fontSize: 60.0,
+                          // Ajustez la taille du texte selon vos besoins
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 60,),
+                      SizedBox(height: 60),
                       Text(
                         'Votre atlas de biodiversité.',
                         style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30.0, // Ajustez la taille du texte selon vos besoins
-                        fontWeight: FontWeight.bold,
-                      ),
+                          color: Colors.white,
+                          fontSize: 30.0,
+                          // Ajustez la taille du texte selon vos besoins
+                          fontWeight: FontWeight.bold,
+                        ),
                       )
                     ],
                   ),
@@ -133,26 +132,27 @@ class _HomePageState extends State<HomePage> {
               height: 100,
             ),
           ),
-          if (!_isMenuOpen)
-            Positioned(
-              left: 18.0, // Ajustez la position horizontale à votre besoin
-              top: 30.0, // Ajustez la position verticale à votre besoin
-              child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    _isMenuOpen = !_isMenuOpen;
-                  });
-                },
-                icon: const Icon(
-                  Icons.menu,
-                  color: Colors.white, // Ajoutez la couleur que vous souhaitez ici
-                ),
-                tooltip: 'Menu',
-              ),
-            ),
+          // if (!_isMenuOpen)
+          //   Positioned(
+          //     left: 18.0, // Ajustez la position horizontale à votre besoin
+          //     top: 30.0, // Ajustez la position verticale à votre besoin
+          //     child: IconButton(
+          //       onPressed: () {
+          //         setState(() {
+          //           _isMenuOpen = !_isMenuOpen;
+          //         });
+          //       },
+          //       icon: const Icon(
+          //         Icons.menu,
+          //         color:
+          //             Colors.white, // Ajoutez la couleur que vous souhaitez ici
+          //       ),
+          //       tooltip: 'Menu',
+          //     ),
+          //   ),
           if (_isMenuOpen)
             Container(
-              width: (screenSize.width / 5 < minFieldWidth )
+              width: (screenSize.width / 5 < minFieldWidth)
                   ? minFieldWidth
                   : screenSize.width / 5,
               child: Drawer(
@@ -162,83 +162,118 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: [
-                    SizedBox(
-                      height: 100,
-                      child : DrawerHeader(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.inversePrimary,
+                    // SizedBox(
+                    //   height: 100,
+                    //   child: DrawerHeader(
+                    //       decoration: BoxDecoration(
+                    //         color: Theme.of(context).colorScheme.inversePrimary,
+                    //       ),
+                    //       child: Row(
+                    //         children: [
+                    //           IconButton(
+                    //             onPressed: () {
+                    //               setState(() {
+                    //                 _isMenuOpen = !_isMenuOpen;
+                    //               });
+                    //             },
+                    //             icon: const Icon(Icons.menu),
+                    //             tooltip: 'Menu',
+                    //           ),
+                    //           const Center(
+                    //             child: Text(
+                    //               'Menu',
+                    //               style: TextStyle(
+                    //                 color: Colors.white,
+                    //                 fontSize: 24,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       )),
+                    // ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15, top: 10),
+                      child: DefaultTextStyle.merge(
+                        style: const TextStyle(
+                          color: Colors.black87,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
                         ),
-                        child: Row(
-                          children: [
-                            IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _isMenuOpen = !_isMenuOpen;
-                              });
-                            },
-                            icon: const Icon(Icons.menu),
-                            tooltip: 'Menu',
-                          ),
-                          const Center(
-                            child :Text(
-                              'Menu',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                              ),
-                            ),
-                          ),
-                        ],)
+                        child: Text("Menu"),
                       ),
                     ),
-                    ListTile(
-                      title: const Text('Liste des campagnes'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CampaignList()),
-                        );
-                      },
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: ListTile(
+                        title: const Text('Liste des campagnes'),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const CampaignList()),
+                          );
+                        },
+                      ),
                     ),
-                    ListTile(
-                      title: const Text('Créer une nouvelle campagne'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CreateCampaign()),
-                        );
-                      },
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: ListTile(
+                        title: const Text('Créer une nouvelle campagne'),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const CreateCampaign()),
+                          );
+                        },
+                      ),
                     ),
-                    ListTile(
-                      title: const Text('Créer une nouvelle fiche'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CreateForm()),
-                        );
-                      },
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: ListTile(
+                        title: const Text('Créer une nouvelle fiche'),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const CreateForm()),
+                          );
+                        },
+                      ),
                     ),
-                    ListTile(
-                      title: const Text('MAP'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Map()),
-                        );
-                      },
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: ListTile(
+                        title: const Text('MAP'),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Map()),
+                          );
+                        },
+                      ),
                     ),
-                    ListTile(
-                      title: const Text('Deconnexion'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Authentification(title: 'Authentification',)),
-                        );
-                      },
-                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: ListTile(
+                        title: DefaultTextStyle.merge(
+                          style: const TextStyle(
+                            color: Colors.red,
+                          ),
+                          child: Text("Déconnexion"),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Authentification(
+                                      title: 'Authentification',
+                                    )),
+                          );
+                        },
+                      ),
+                    )
                   ],
                 ),
               ),

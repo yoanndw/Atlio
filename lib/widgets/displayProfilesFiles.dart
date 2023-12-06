@@ -31,8 +31,7 @@ class DisplayFiles extends StatelessWidget {
         // TODO changer la redirection
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => const HomePage(title: 'HomePage',)),
+          MaterialPageRoute(builder: (context) => const HomePage()),
         );
       },
       child: Row(

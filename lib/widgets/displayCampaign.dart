@@ -33,8 +33,7 @@ class DisplayCampaign extends StatelessWidget {
           // TODO changer la redirection
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => const HomePage(title: 'hahahaha')),
+            MaterialPageRoute(builder: (context) => const HomePage()),
           );
         },
         child: Row(
