@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:project_ofb/model/appModel.dart';
 import 'package:provider/provider.dart';
 
-import 'package:project_ofb/login.dart';
+import 'package:project_ofb/firebase_options.dart';
+import 'package:project_ofb/model/appModel.dart';
 import 'package:project_ofb/profile.dart';
 import 'package:project_ofb/widgets/menu.dart';
-import 'package:project_ofb/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

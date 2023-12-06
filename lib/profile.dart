@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project_ofb/authentification.dart';
+import 'package:project_ofb/widgets/authentification.dart';
 import 'package:provider/provider.dart';
 
-import 'package:project_ofb/login.dart';
 import 'package:project_ofb/model/appModel.dart';
 import 'model/fiche.dart';
 import 'widgets/displayProfilesFiles.dart';
