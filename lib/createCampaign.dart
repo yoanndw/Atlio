@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:project_ofb/campaignList.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+
+import 'package:project_ofb/campaignList.dart';
+import 'package:project_ofb/model/campagne.dart';
 
 void main() {
   runApp(const CreateCampaign());
@@ -20,8 +23,6 @@ class _CreateCampaignState extends State<CreateCampaign> {
   DateTime dateDebut = DateTime(2000, 1, 1);
   DateTime dateFin = DateTime(2000, 1, 1);
   final descriptionController = TextEditingController();
-  final territoireController = TextEditingController();
-  final groupesTaxonomiquesController = TextEditingController();
   final fichesController = TextEditingController();
 
   final double minFieldWidth = 300.0;
@@ -89,8 +90,8 @@ class _CreateCampaignState extends State<CreateCampaign> {
     "Carnac",
   ];
 
-  List<String?> _selectedAnimals = [];
-  List<String?> _selectedCities = [];
+  List<String> _selectedAnimals = [];
+  List<String> _selectedCities = [];
 
   @override
   void dispose() {
@@ -98,8 +99,6 @@ class _CreateCampaignState extends State<CreateCampaign> {
     // This also removes the _printLatestValue listener.
     titreController.dispose();
     descriptionController.dispose();
-    territoireController.dispose();
-    groupesTaxonomiquesController.dispose();
     fichesController.dispose();
     super.dispose();
   }
@@ -111,11 +110,22 @@ class _CreateCampaignState extends State<CreateCampaign> {
     }
   }
 
+  void _insertCampaign(Campagne c) {
+    FirebaseFirestore.instance
+        .collection('campaigns')
+        .add(c.toFirestore())
+        .then((value) => print('Inserted campaign $value.'))
+        .catchError(
+            (err) => print('ERROR: Could not insert campaign $c: $err'));
+  }
+
   InputDecoration myInputDecoration(String hintText) {
     return InputDecoration(
       hintText: hintText,
       hintStyle: const TextStyle(color: Colors.black87),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0), // Ajustez ces valeurs pour décaler le texte
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+      // Ajustez ces valeurs pour décaler le texte
       border: InputBorder.none,
     );
   }
@@ -151,9 +161,12 @@ class _CreateCampaignState extends State<CreateCampaign> {
                           ? minFieldWidth
                           : screenSize.width / 2,
                       decoration: BoxDecoration(
-                        color: Colors.white54, // Couleur de fond
-                        border: Border.all(color: Colors.white), // Couleur du trait
-                        borderRadius: BorderRadius.circular(10.0), // Coins arrondis
+                        color: Colors.white54,
+                        // Couleur de fond
+                        border: Border.all(color: Colors.white),
+                        // Couleur du trait
+                        borderRadius:
+                            BorderRadius.circular(10.0), // Coins arrondis
                       ),
                       child: TextFormField(
                         decoration: myInputDecoration("Titre"),
@@ -172,9 +185,12 @@ class _CreateCampaignState extends State<CreateCampaign> {
                           ? minFieldWidth
                           : screenSize.width / 2,
                       decoration: BoxDecoration(
-                        color: Colors.white54, // Couleur de fond
-                        border: Border.all(color: Colors.white), // Couleur du trait
-                        borderRadius: BorderRadius.circular(10.0), // Coins arrondis
+                        color: Colors.white54,
+                        // Couleur de fond
+                        border: Border.all(color: Colors.white),
+                        // Couleur du trait
+                        borderRadius:
+                            BorderRadius.circular(10.0), // Coins arrondis
                       ),
                       child: TextField(
                         decoration: myInputDecoration("Description"),
@@ -188,9 +204,12 @@ class _CreateCampaignState extends State<CreateCampaign> {
                           : screenSize.width / 2,
                       child: MultiSelectDialogField(
                         decoration: BoxDecoration(
-                          color: Colors.white54, // Couleur de fond
-                          border: Border.all(color: Colors.white), // Couleur du trait
-                          borderRadius: BorderRadius.circular(10.0), // Coins arrondis
+                          color: Colors.white54,
+                          // Couleur de fond
+                          border: Border.all(color: Colors.white),
+                          // Couleur du trait
+                          borderRadius:
+                              BorderRadius.circular(10.0), // Coins arrondis
                         ),
                         items: _cities
                             .map((e) => MultiSelectItem(e, e.toString()))
@@ -215,9 +234,12 @@ class _CreateCampaignState extends State<CreateCampaign> {
                           : screenSize.width / 2,
                       child: MultiSelectDialogField(
                         decoration: BoxDecoration(
-                          color: Colors.white54, // Couleur de fond
-                          border: Border.all(color: Colors.white), // Couleur du trait
-                          borderRadius: BorderRadius.circular(10.0), // Coins arrondis
+                          color: Colors.white54,
+                          // Couleur de fond
+                          border: Border.all(color: Colors.white),
+                          // Couleur du trait
+                          borderRadius:
+                              BorderRadius.circular(10.0), // Coins arrondis
                         ),
                         items: _animals
                             .map((e) => MultiSelectItem(e, e.toString()))
@@ -277,6 +299,16 @@ class _CreateCampaignState extends State<CreateCampaign> {
               if (dateFin != DateTime(2000, 1, 1)) {
                 // Si le formulaire est valide et une plage de dates a été sélectionnée,
                 // naviguer vers la prochaine page
+
+                _insertCampaign(Campagne(
+                    titre: titreController.text,
+                    dateDebut: dateDebut,
+                    dateFin: dateFin,
+                    description: descriptionController.text,
+                    territoire: _selectedCities,
+                    groupesTaxonomiques: _selectedAnimals,
+                    fiches: []));
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const CampaignList()),
