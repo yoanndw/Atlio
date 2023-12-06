@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:project_ofb/model/appModel.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,15 +21,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade300),
         useMaterial3: true,
       ),
-      home: const Authentification(title: 'Authentification'),
+      home: const Authentification(),
     );
   }
 }
 
 class Authentification extends StatefulWidget {
-  const Authentification({super.key, required this.title});
-
-  final String title;
+  const Authentification({super.key});
 
   @override
   State<Authentification> createState() => _AuthentificationState();
@@ -34,16 +36,29 @@ class Authentification extends StatefulWidget {
 class _AuthentificationState extends State<Authentification> {
 
   final _formKey = GlobalKey<FormState>();
+  String _email = '', _password = '';
+
+  void _login() async {
+    try {
+      var uc = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _email,
+        password: _password,
+      );
+
+      print(
+          '[LOGIN SUCCESS] ${_email}, ${_password} : Credential: $uc');
+      Provider.of<AppModel>(context, listen: false).login(uc);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+      } else if (e.code == 'wrong-password') {
+      } else {}
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text("Authentification"),
-        ),
-        body: Container(
+        return Container(
             // Set the background image
             height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
@@ -79,14 +94,19 @@ class _AuthentificationState extends State<Authentification> {
                             BorderRadius.circular(10.0), // Coins arrondis
                       ),
                       child: TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "Nom d'utilisateur",
-                          hintStyle: const TextStyle(color: Colors.black87),
-                          contentPadding: const EdgeInsets.symmetric(
+                        decoration: const InputDecoration(
+                          labelText: "Adresse email",
+                          hintStyle: TextStyle(color: Colors.black87),
+                          contentPadding: EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 16.0),
                           // Ajustez ces valeurs pour décaler le texte
                           border: InputBorder.none,
                         ),
+                        onChanged: (v) {
+                          setState(() {
+                            _email = v;
+                          });
+                        },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Veuillez remplir ce champ';
@@ -109,14 +129,19 @@ class _AuthentificationState extends State<Authentification> {
                             BorderRadius.circular(10.0), // Coins arrondis
                       ),
                       child: TextFormField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: "Mot de passe",
-                          hintStyle: const TextStyle(color: Colors.black87),
-                          contentPadding: const EdgeInsets.symmetric(
+                          hintStyle: TextStyle(color: Colors.black87),
+                          contentPadding: EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 16.0),
                           // Ajustez ces valeurs pour décaler le texte
                           border: InputBorder.none,
                         ),
+                        onChanged: (v) {
+                          setState(() {
+                            _password = v;
+                          });
+                        },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Veuillez remplir ce champ';
@@ -144,9 +169,7 @@ class _AuthentificationState extends State<Authentification> {
                           if (_formKey.currentState!.validate()) {
                             // If the form is valid, display a snackbar. In the real world,
                             // you'd often call a server or save the information in a database.
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')),
-                            );
+                            _login();
                           }
                         },
                         child: const Text('Connexion'),
@@ -155,6 +178,6 @@ class _AuthentificationState extends State<Authentification> {
                   ),
                 ],
               ),
-            )));
+            ));
   }
 }

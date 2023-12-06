@@ -40,6 +40,7 @@ class _LoginState extends State<Login> {
           decoration: const InputDecoration(hintText: 'Adresse email'),
         ),
         TextField(
+          obscureText: true,
           controller: _passwordController,
           decoration: const InputDecoration(hintText: 'Mot de passe'),
         ),

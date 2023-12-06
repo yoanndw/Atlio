@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project_ofb/authentification.dart';
 import 'package:provider/provider.dart';
 
 import 'package:project_ofb/login.dart';
@@ -46,7 +47,7 @@ class _ProfileState extends State<Profile> {
                 child: SingleChildScrollView(child: Consumer<AppModel>(
                   builder: (context, app, child) {
                     if (app.loggedUser == null) {
-                      return const Login();
+                      return const Authentification();
                     }
 
                     return Column(

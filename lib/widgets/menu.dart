@@ -151,9 +151,7 @@ class Menu extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Authentification(
-                                  title: 'Authentification',
-                                )),
+                            builder: (context) => const Authentification()),
                       );
                     },
                   ),
