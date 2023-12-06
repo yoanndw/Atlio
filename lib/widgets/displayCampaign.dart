@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_ofb/showCampaign.dart';
 
-import '../homePage.dart';
 import '../model/campagne.dart';
 
 class DisplayCampaign extends StatelessWidget {
@@ -30,10 +30,12 @@ class DisplayCampaign extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          // TODO changer la redirection
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const HomePage()),
+            MaterialPageRoute(
+                builder: (context) => ShowCampaign(
+                      campagne: campagne,
+                    )),
           );
         },
         child: Row(
