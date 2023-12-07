@@ -2,12 +2,13 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Utilisateur {
+  String? id;
+  String email;
   String nom;
   List<String> territoire;
-  List<int> fiches;
 
   Utilisateur(
-      {required this.nom, this.territoire = const [], this.fiches = const []});
+      {this.id, required this.email, required this.nom, this.territoire = const []});
 
   factory Utilisateur.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -15,17 +16,19 @@ class Utilisateur {
   ) {
     final data = snapshot.data();
     return Utilisateur(
+      id: snapshot.reference.id,
+      email: data?['email'],
       nom: data?['nom'],
       territoire: data?['territoire'],
-      fiches: data?['fiches'],
     );
   }
 
   Map<String, dynamic> toFirestore() {
     return {
+      if (id != null) "id": id,
+      "email": email,
       "nom": nom,
       "territoire": territoire,
-      "fiches": fiches,
     };
   }
 }

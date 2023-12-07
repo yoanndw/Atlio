@@ -1,23 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Fiche {
+  String? id;
   Map<String, double> positionGps; // { "lat": X, "lon": Y }
-  String user;
   String lieu;
   DateTime dateHeure;
   List<String> photos = [];
   String observation;
-  int campagne, utilisateur;
+  String campagne, utilisateur;
 
   Fiche(
-      {required this.campagne,
+      {this.id,
+      required this.campagne,
       required this.utilisateur,
       required this.positionGps,
       required this.lieu,
       required this.dateHeure,
       required this.photos,
-      required this.observation,
-      required this.user});
+      required this.observation});
 
   factory Fiche.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -25,6 +25,7 @@ class Fiche {
   ) {
     final data = snapshot.data();
     return Fiche(
+      id: snapshot.reference.id,
       campagne: data?['campagne'],
       utilisateur: data?['utilisateur'],
       positionGps: Map<String, double>.from(data?['positionGps']),
@@ -32,12 +33,12 @@ class Fiche {
       dateHeure: (data?['dateHeure'] as Timestamp).toDate(),
       photos: data?['photos'] is Iterable ? List.from(data?['photos']) : [],
       observation: data?['observation'],
-      user: data?['user'],
     );
   }
 
   Map<String, dynamic> toFirestore() {
     return {
+      if (id != null) "id": id,
       "campagne": campagne,
       "utilisateur": utilisateur,
       "positionGps": positionGps,
@@ -45,7 +46,6 @@ class Fiche {
       "dateHeure": Timestamp.fromDate(dateHeure),
       "photos": photos,
       "observation": observation,
-      "user": user,
     };
   }
 }

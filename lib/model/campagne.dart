@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Campagne {
+  String? id;
+  int user;
   String titre;
   DateTime dateDebut, dateFin;
   String description;
@@ -8,7 +10,9 @@ class Campagne {
   List<String> groupesTaxonomiques;
 
   Campagne(
-      {required this.titre,
+      {this.id,
+      required this.user,
+      required this.titre,
       required this.dateDebut,
       required this.dateFin,
       required this.description,
@@ -20,6 +24,8 @@ class Campagne {
       SnapshotOptions? options) {
     final data = snapshot.data()!;
     return Campagne(
+      id: snapshot.reference.id,
+      user: data['user'],
       titre: data['titre'],
       dateDebut: data['dateDebut'],
       dateFin: data['dateFin'],
@@ -31,6 +37,8 @@ class Campagne {
 
   Map<String, dynamic> toFirestore() {
     return {
+      if (id != null) "id": id,
+      "user": user,
       "titre": titre,
       "dateDebut": dateDebut,
       "dateFin": dateFin,
