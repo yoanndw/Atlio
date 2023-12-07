@@ -60,15 +60,16 @@ class _CampaignListState extends State<CampaignList> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  // DisplayCampaign(
-                  //     campagne: Campagne(
-                  //   titre: "Camp 1",
-                  //   dateDebut: DateTime(2017),
-                  //   dateFin: DateTime(2018),
-                  //   description: "Bonjour description",
-                  //   territoire: ["Rennes, Paris"],
-                  //   groupesTaxonomiques: ["Renards", "Abeilles"],
-                  // )),
+                  DisplayCampaign(
+                      campagne: Campagne(
+                    titre: "Camp 1",
+                    dateDebut: DateTime(2017),
+                    dateFin: DateTime(2018),
+                    description: "Bonjour description",
+                    territoire: ["Rennes, Paris"],
+                    groupesTaxonomiques: ["Renards", "Abeilles"],
+                    utilisateur: 'uihkuh',
+                  )),
                   // DisplayCampaign(
                   //     campagne: Campagne(
                   //   titre: "Camp 1",

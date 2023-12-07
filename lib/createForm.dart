@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart' as osm;
 import 'package:geocoding/geocoding.dart';
-
 import 'package:project_ofb/formList.dart';
 import 'package:project_ofb/model/fiche.dart';
 
@@ -72,6 +69,7 @@ class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Création d'une nouvelle fiche."),
@@ -109,7 +107,7 @@ class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
                           child: SingleChildScrollView(
                             child: TextFormField(
                               decoration:
-                                  myInputDecoration("Entrez votre observation"),
+                              myInputDecoration("Entrez votre observation"),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Veuillez entrer une observation';
@@ -145,7 +143,7 @@ class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
                                   : screenSize.width / 2,
                               child: GridView.builder(
                                 gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 3,
                                   crossAxisSpacing: 4.0,
                                   mainAxisSpacing: 4.0,

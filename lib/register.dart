@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
-import 'package:project_ofb/homePage.dart';
 import 'package:project_ofb/model/appModel.dart';
-
-import 'package:project_ofb/model/constants.dart';
 import 'package:project_ofb/model/utilisateur.dart';
 import 'package:provider/provider.dart';
 
@@ -21,9 +17,13 @@ class _RegisterState extends State<Register> {
 
   void _insertUser() {
     final user = Utilisateur(email: _email!, nom: _name!);
-    FirebaseFirestore.instance.collection('users').add(user.toFirestore()).then((value) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .add(user.toFirestore())
+        .then((value) {
       print('Inserted user $user.');
-      Navigator.popUntil(context, (route) => route.isFirst); // First page is the home
+      Navigator.popUntil(
+          context, (route) => route.isFirst); // First page is the home
     });
   }
 
@@ -49,7 +49,10 @@ class _RegisterState extends State<Register> {
     Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Créer un compte')),
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text('Créer un compte')),
       body: Container(
           // Set the background image
           height: MediaQuery.of(context).size.height,
@@ -71,7 +74,7 @@ class _RegisterState extends State<Register> {
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
-                  child: Text('Informations'),
+                  child: Text('Bienvenue ! 👋'),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
@@ -109,8 +112,8 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      top: 50, bottom: 16, left: 30, right: 30),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 30),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white54,
@@ -201,7 +204,7 @@ class _RegisterState extends State<Register> {
                           _register();
                         }
                       },
-                      child: const Text('Connexion'),
+                      child: const Text('Inscription'),
                     ),
                   ),
                 ),

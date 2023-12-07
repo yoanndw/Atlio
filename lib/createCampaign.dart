@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
-
 import 'package:project_ofb/campaignList.dart';
 import 'package:project_ofb/model/campagne.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 void main() {
   runApp(const CreateCampaign());
@@ -134,6 +133,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Création d'une nouvelle campagne"),
@@ -166,7 +166,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
                         border: Border.all(color: Colors.white),
                         // Couleur du trait
                         borderRadius:
-                            BorderRadius.circular(10.0), // Coins arrondis
+                        BorderRadius.circular(10.0), // Coins arrondis
                       ),
                       child: TextFormField(
                         decoration: myInputDecoration("Titre"),
@@ -190,7 +190,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
                         border: Border.all(color: Colors.white),
                         // Couleur du trait
                         borderRadius:
-                            BorderRadius.circular(10.0), // Coins arrondis
+                        BorderRadius.circular(10.0), // Coins arrondis
                       ),
                       child: TextField(
                         decoration: myInputDecoration("Description"),
@@ -209,7 +209,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
                           border: Border.all(color: Colors.white),
                           // Couleur du trait
                           borderRadius:
-                              BorderRadius.circular(10.0), // Coins arrondis
+                          BorderRadius.circular(10.0), // Coins arrondis
                         ),
                         items: _cities
                             .map((e) => MultiSelectItem(e, e.toString()))
@@ -239,7 +239,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
                           border: Border.all(color: Colors.white),
                           // Couleur du trait
                           borderRadius:
-                              BorderRadius.circular(10.0), // Coins arrondis
+                          BorderRadius.circular(10.0), // Coins arrondis
                         ),
                         items: _animals
                             .map((e) => MultiSelectItem(e, e.toString()))
