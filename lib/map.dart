@@ -1,21 +1,21 @@
 import 'dart:collection';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 
-// import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:project_ofb/widgets/markerPreview.dart';
 
 import 'model/fiche.dart';
 
 void main() {
-  runApp(CampagneMap(fiches: [],));
+  runApp(CampagneMap(
+    fiches: [],
+  ));
 }
 
 class CampagneMap extends StatefulWidget {
-
   final List<Fiche> fiches;
   List<Marker> _markers = [];
 
@@ -26,7 +26,6 @@ class CampagneMap extends StatefulWidget {
 }
 
 class _CampagneMapState extends State<CampagneMap> /*with OSMMixinObserver*/ {
-
   final Map<Marker, Widget> fiches = HashMap();
 
   @override
@@ -44,67 +43,19 @@ class _CampagneMapState extends State<CampagneMap> /*with OSMMixinObserver*/ {
     for (var i = 0; i < widget.fiches.length; i++) {
       var currentFiche = widget.fiches[i];
       Marker marker = Marker(
-          point: LatLng(currentFiche.positionGps["lat"]!, currentFiche.positionGps["lon"]!),
+          point: LatLng(currentFiche.positionGps["lat"]!,
+              currentFiche.positionGps["lon"]!),
           width: 80,
           height: 80,
-          child: Icon(Icons.star)
-      );
+          child: Icon(Icons.star));
       widget._markers.add(marker);
 
-      if(currentFiche.photos.isEmpty) {
-        fiches[marker] = const Icon(Icons.insert_photo_outlined);
-      } else {
-        fiches[marker] = currentFiche.photos[0] as Widget;
-      }
+      fiches[marker] = MarkerPreview(fiche: currentFiche);
     }
   }
 
-
   MapController controller = MapController();
   late final PopupController _popupController;
-
-  List<Marker> _buildMarkers() {
-    return [
-      const Marker(
-        point: LatLng(44.421, 10.404),
-        width: 40,
-        height: 40,
-        child: Icon(
-          Icons.ac_unit,
-          size: 40,
-        ),
-      ),
-      Marker(
-        point: const LatLng(45.683, 10.839),
-        width: 20,
-        height: 40,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.black54,
-            border: Border.all(color: Colors.black, width: 0.0),
-            borderRadius: const BorderRadius.all(Radius.elliptical(20, 40)),
-          ),
-          width: 20,
-          height: 40,
-        ),
-      ),
-      Marker(
-        point: const LatLng(45.246, 5.783),
-        width: 40,
-        height: 20,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(0.5),
-            border: Border.all(color: Colors.black, width: 0.0),
-            borderRadius: const BorderRadius.all(Radius.elliptical(40, 20)),
-          ),
-          width: 40,
-          height: 20,
-        ),
-      ),
-    ];
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -125,35 +76,21 @@ class _CampagneMapState extends State<CampagneMap> /*with OSMMixinObserver*/ {
               markers: widget._markers,
               popupController: _popupController,
               popupDisplayOptions: PopupDisplayOptions(
-                builder: (BuildContext context, Marker marker) =>
-                    Container(
-                      // decoration: BoxDecoration(
-                      //   color: Colors.blue.withOpacity(0.5),
-                      //   border: Border.all(color: Colors.red, width: 0.0),
-                      //   borderRadius: const BorderRadius.all(Radius.elliptical(40, 20)),
-                      // ),
-                      child: fiches[marker],
-                      width: 80,
-                      height: 80,
-                    ),
+                builder: (BuildContext context, Marker marker) => SizedBox(
+                  width: 90,
+                  height: 200,
+                  child: fiches[marker],
+                ),
+                snap: PopupSnap.markerCenter,
                 animation: const PopupAnimation.fade(
-                    duration: Duration(milliseconds: 700)),
+                    duration: Duration(milliseconds: 300)),
               ),
               markerTapBehavior: MarkerTapBehavior.togglePopup(),
-              onPopupEvent: (event, selectedMarkers) {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(event.runtimeType.toString()),
-                    duration: const Duration(seconds: 1),
-                  ),
-                );
-              },
+              onPopupEvent: (event, selectedMarkers) {},
             ),
           ),
         ],
       ),
     );
   }
-
 }
