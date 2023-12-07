@@ -89,22 +89,26 @@ class _MenuState extends State<Menu> {
                       },
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: ListTile(
-                      title: DefaultTextStyle.merge(
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                        child: Text("Nouvelle campagne"),
+                  Consumer<AppModel>(builder: (context, app, child) {
+                    if (_user == null) return SizedBox.shrink();
+
+                    return Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: ListTile(
+                        title: DefaultTextStyle.merge(
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                          child: Text("Nouvelle campagne"),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const CreateCampaign()),
+                          );
+                        },
                       ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CreateCampaign()),
-                        );
-                      },
-                    ),
-                  ),
+                    );
+                  }),
                   Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: ListTile(
