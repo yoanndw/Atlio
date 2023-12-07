@@ -5,6 +5,8 @@ import 'package:project_ofb/model/appModel.dart';
 import 'package:project_ofb/model/utilisateur.dart';
 import 'package:provider/provider.dart';
 
+import 'homePage.dart';
+
 class Register extends StatefulWidget {
   @override
   State<Register> createState() => _RegisterState();
@@ -202,6 +204,10 @@ class _RegisterState extends State<Register> {
                           // If the form is valid, display a snackbar. In the real world,
                           // you'd often call a server or save the information in a database.
                           _register();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()));
                         }
                       },
                       child: const Text('Inscription'),

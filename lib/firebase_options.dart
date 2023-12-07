@@ -23,15 +23,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -50,20 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCK6GvVdcYlC63Y49MBQTWqehtnRl3iIpM',
-    appId: '1:591344665781:web:9b7281450d63ed28c06afc',
-    messagingSenderId: '591344665781',
-    projectId: 'mmm-ofb-2e08c',
-    authDomain: 'mmm-ofb-2e08c.firebaseapp.com',
-    storageBucket: 'mmm-ofb-2e08c.appspot.com',
-    measurementId: 'G-VD8YC4CX3N',
+    apiKey: 'AIzaSyA1zL6KremPP1qm9BtLP_9rD2e-LbNAG1I',
+    appId: '1:842648591663:web:3810ac5c2b250a47db15da',
+    messagingSenderId: '842648591663',
+    projectId: 'project-ofb',
+    authDomain: 'project-ofb.firebaseapp.com',
+    storageBucket: 'project-ofb.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA8HW-N8hYNzxh7wf4FAU46jF4PmerR4yQ',
-    appId: '1:591344665781:android:b980c2fd118d1dd9c06afc',
-    messagingSenderId: '591344665781',
-    projectId: 'mmm-ofb-2e08c',
-    storageBucket: 'mmm-ofb-2e08c.appspot.com',
+    apiKey: 'AIzaSyDgnCsnXGrNl7ZvFPy76ywC2dp8DghIfxw',
+    appId: '1:842648591663:android:3bc0553a798055f2db15da',
+    messagingSenderId: '842648591663',
+    projectId: 'project-ofb',
+    storageBucket: 'project-ofb.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyDR50aqHlB4-NUAFiXv4Mnn-kmsyJYZReA',
+    appId: '1:842648591663:ios:b505d01f13f4e3e6db15da',
+    messagingSenderId: '842648591663',
+    projectId: 'project-ofb',
+    storageBucket: 'project-ofb.appspot.com',
+    iosBundleId: 'com.example.projectOfb',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDR50aqHlB4-NUAFiXv4Mnn-kmsyJYZReA',
+    appId: '1:842648591663:ios:9d960ce4ab4ffcc0db15da',
+    messagingSenderId: '842648591663',
+    projectId: 'project-ofb',
+    storageBucket: 'project-ofb.appspot.com',
+    iosBundleId: 'com.example.projectOfb.RunnerTests',
   );
 }

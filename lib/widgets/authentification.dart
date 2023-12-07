@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:project_ofb/homePage.dart';
 import 'package:project_ofb/model/appModel.dart';
 import 'package:project_ofb/register.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +59,9 @@ class _AuthentificationState extends State<Authentification> {
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
-        return Container(
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Container(
             // Set the background image
             height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
@@ -172,6 +174,10 @@ class _AuthentificationState extends State<Authentification> {
                             // If the form is valid, display a snackbar. In the real world,
                             // you'd often call a server or save the information in a database.
                             _login();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()));
                           }
                         },
                         child: const Text('Connexion'),
@@ -193,7 +199,10 @@ class _AuthentificationState extends State<Authentification> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Register()));
                         },
                         child: const Text('Créer un compte'),
                       ),
@@ -201,6 +210,6 @@ class _AuthentificationState extends State<Authentification> {
                   ),
                 ],
               ),
-            ));
+            )));
   }
 }

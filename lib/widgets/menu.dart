@@ -1,43 +1,40 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_ofb/homePage.dart';
 import 'package:project_ofb/model/fiche.dart';
 import 'package:project_ofb/profile.dart';
+import 'package:project_ofb/widgets/authentification.dart';
+import 'package:provider/provider.dart';
 
 import '../campaignList.dart';
 import '../createCampaign.dart';
 import '../map.dart';
+import '../model/appModel.dart';
 
 class Menu extends StatelessWidget {
   final double minFieldWidth = 300.0;
   final bool isMenuOpen;
+  UserCredential? _user;
+  final _formKey = GlobalKey<FormState>();
 
   // Constructor
   Menu({Key? key, required bool this.isMenuOpen}) : super(key: key);
 
   Map<String, double> m = {"lat": 48.117266, "lon": -1.6777926};
 
+  void _logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } on FirebaseAuthException catch (e) {
+      print("Error signing out: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    _user = Provider.of<AppModel>(context).loggedUser;
     Size screenSize = MediaQuery.of(context).size;
     return Stack(children: [
-      // if (!_isMenuOpen)
-      //   Positioned(
-      //     left: 18.0, // Ajustez la position horizontale à votre besoin
-      //     top: 30.0, // Ajustez la position verticale à votre besoin
-      //     child: IconButton(
-      //       onPressed: () {
-      //         setState(() {
-      //           _isMenuOpen = !_isMenuOpen;
-      //         });
-      //       },
-      //       icon: const Icon(
-      //         Icons.menu,
-      //         color:
-      //             Colors.white, // Ajoutez la couleur que vous souhaitez ici
-      //       ),
-      //       tooltip: 'Menu',
-      //     ),
-      //   ),
       if (this.isMenuOpen)
         Container(
           width: (screenSize.width / 5 < minFieldWidth)
@@ -50,46 +47,6 @@ class Menu extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // SizedBox(
-                //   height: 100,
-                //   child: DrawerHeader(
-                //       decoration: BoxDecoration(
-                //         color: Theme.of(context).colorScheme.inversePrimary,
-                //       ),
-                //       child: Row(
-                //         children: [
-                //           IconButton(
-                //             onPressed: () {
-                //               setState(() {
-                //                 _isMenuOpen = !_isMenuOpen;
-                //               });
-                //             },
-                //             icon: const Icon(Icons.menu),
-                //             tooltip: 'Menu',
-                //           ),
-                //           const Center(
-                //             child: Text(
-                //               'Menu',
-                //               style: TextStyle(
-                //                 color: Colors.white,
-                //                 fontSize: 24,
-                //               ),
-                //             ),
-                //           ),
-                //         ],
-                //       )),
-                // ),
-                // Padding(
-                //   padding: EdgeInsets.only(left: 15, top: 10),
-                //   child: DefaultTextStyle.merge(
-                //     style: const TextStyle(
-                //       color: Colors.black87,
-                //       fontSize: 24,
-                //       fontWeight: FontWeight.w600,
-                //     ),
-                //     child: Text("Menu"),
-                //   ),
-                // ),
                 Column(children: [
                   Padding(
                     padding: EdgeInsets.only(left: 10),
@@ -148,15 +105,13 @@ class Menu extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => CampagneMap(fiches: [
-                                    Fiche(
-                                        utilisateur: "Robert Chapeau",
+                                Fiche(
+                                    utilisateur: "Robert Chapeau",
                                         campagne: '',
                                         positionGps: m,
                                         lieu: 'Auray la street',
                                         dateHeure: DateTime(2017),
-                                        photos: [
-                                            "assets/fleur.png"
-                                        ],
+                                        photos: ["assets/fleur.png"],
                                         observation:
                                             "Une petite observation très peu complète malheureusement Une petite observation très peu complète"),
                                   ])),
@@ -165,48 +120,82 @@ class Menu extends StatelessWidget {
                     ),
                   ),
                 ]),
-                Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: ListTile(
-                        leading: Icon(Icons.account_circle_outlined),
-                        title: DefaultTextStyle.merge(
-                          style: const TextStyle(fontWeight: FontWeight.w500),
-                          child: Text("Profil"),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Profile()),
-                          );
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: ListTile(
-                        iconColor: Colors.red,
-                        leading: Icon(Icons.logout_outlined),
-                        title: DefaultTextStyle.merge(
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.red,
+                Consumer<AppModel>(builder: (context, app, child) {
+                  if (app.loggedUser == null) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: ListTile(
+                            leading: Icon(Icons.login_outlined),
+                            title: DefaultTextStyle.merge(
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w500),
+                              child: Text("Connexion"),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Authentification()),
+                              );
+                            },
                           ),
-                          child: Text("Déconnexion"),
                         ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Profile()),
-                          );
-                        },
-                      ),
-                    )
-                  ],
-                )
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: ListTile(
+                            leading: Icon(Icons.account_circle_outlined),
+                            title: DefaultTextStyle.merge(
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w500),
+                              child: Text("Profil"),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Profile()),
+                              );
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: ListTile(
+                            iconColor: Colors.red,
+                            leading: Icon(Icons.logout_outlined),
+                            title: DefaultTextStyle.merge(
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.red,
+                              ),
+                              child: Text("Déconnexion"),
+                            ),
+                            onTap: () {
+                              // Validate returns true if the form is valid, or false otherwise.
+
+                              // If the form is valid, display a snackbar. In the real world,
+                              // you'd often call a server or save the information in a database.
+                              _logout();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomePage()),
+                              );
+                            },
+                          ),
+                        )
+                      ],
+                    );
+                  }
+                })
               ],
             ),
           ),

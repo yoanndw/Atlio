@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "591344665781",
-    "project_id": "mmm-ofb-2e08c",
-    "storage_bucket": "mmm-ofb-2e08c.appspot.com"
+    "project_number": "842648591663",
+    "project_id": "project-ofb",
+    "storage_bucket": "project-ofb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:591344665781:android:b980c2fd118d1dd9c06afc",
+        "mobilesdk_app_id": "1:842648591663:android:3bc0553a798055f2db15da",
         "android_client_info": {
           "package_name": "com.example.project_ofb"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA8HW-N8hYNzxh7wf4FAU46jF4PmerR4yQ"
+          "current_key": "AIzaSyDgnCsnXGrNl7ZvFPy76ywC2dp8DghIfxw"
         }
       ],
       "services": {
