@@ -5,10 +5,9 @@ class Utilisateur {
   String? id;
   String email;
   String nom;
-  List<String> territoire;
 
   Utilisateur(
-      {this.id, required this.email, required this.nom, this.territoire = const []});
+      {this.id, required this.email, required this.nom});
 
   factory Utilisateur.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -19,7 +18,6 @@ class Utilisateur {
       id: snapshot.reference.id,
       email: data?['email'],
       nom: data?['nom'],
-      territoire: data?['territoire'],
     );
   }
 
@@ -28,7 +26,6 @@ class Utilisateur {
       if (id != null) "id": id,
       "email": email,
       "nom": nom,
-      "territoire": territoire,
     };
   }
 }
