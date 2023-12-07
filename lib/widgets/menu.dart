@@ -155,7 +155,7 @@ class Menu extends StatelessWidget {
                                         lieu: 'Auray la street',
                                         dateHeure: DateTime(2017),
                                         photos: [
-                                          // "assets/fleur.png"
+                                            "assets/fleur.png"
                                         ],
                                         observation:
                                             "Une petite observation très peu complète malheureusement Une petite observation très peu complète"),
