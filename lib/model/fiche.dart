@@ -38,7 +38,6 @@ class Fiche {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (id != null) "id": id,
       "campagne": campagne,
       "utilisateur": utilisateur,
       "positionGps": positionGps,

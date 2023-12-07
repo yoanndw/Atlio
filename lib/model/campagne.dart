@@ -37,7 +37,6 @@ class Campagne {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (id != null) "id": id,
       "user": utilisateur,
       "titre": titre,
       "dateDebut": dateDebut,

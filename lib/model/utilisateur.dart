@@ -23,7 +23,6 @@ class Utilisateur {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (id != null) "id": id,
       "email": email,
       "nom": nom,
     };
