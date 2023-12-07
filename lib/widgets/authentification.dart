@@ -41,6 +41,7 @@ class _AuthentificationState extends State<Authentification> {
 
   void _login() async {
     try {
+      print('Trying to connect: ${_email}, ${_password} ...');
       var uc = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _email,
         password: _password,
@@ -50,6 +51,7 @@ class _AuthentificationState extends State<Authentification> {
           '[LOGIN SUCCESS] ${_email}, ${_password} : Credential: $uc');
       Provider.of<AppModel>(context, listen: false).login(uc);
     } on FirebaseAuthException catch (e) {
+      print('[LOGIN ERROR] ${e.code} : ${e.message}');
       if (e.code == 'user-not-found') {
       } else if (e.code == 'wrong-password') {
       } else {}

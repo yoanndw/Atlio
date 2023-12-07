@@ -10,21 +10,30 @@ import '../campaignList.dart';
 import '../createCampaign.dart';
 import '../map.dart';
 import '../model/appModel.dart';
+import '../model/constants.dart';
 
-class Menu extends StatelessWidget {
-  final double minFieldWidth = 300.0;
+class Menu extends StatefulWidget {
+  @override
+  State<Menu> createState() => _MenuState();
+
   final bool isMenuOpen;
-  UserCredential? _user;
-  final _formKey = GlobalKey<FormState>();
 
   // Constructor
   Menu({Key? key, required bool this.isMenuOpen}) : super(key: key);
 
+}
+
+class _MenuState extends State<Menu> {
+
   Map<String, double> m = {"lat": 48.117266, "lon": -1.6777926};
+  final _formKey = GlobalKey<FormState>();
+  UserCredential? _user;
 
   void _logout() async {
     try {
       await FirebaseAuth.instance.signOut();
+
+      Provider.of<AppModel>(context, listen: false).logout();
     } on FirebaseAuthException catch (e) {
       print("Error signing out: $e");
     }
@@ -32,10 +41,10 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _user = Provider.of<AppModel>(context).loggedUser;
+    _user = Provider.of<AppModel>(context, listen:false).loggedUser;
     Size screenSize = MediaQuery.of(context).size;
     return Stack(children: [
-      if (this.isMenuOpen)
+      if (this.widget.isMenuOpen)
         Container(
           width: (screenSize.width / 5 < minFieldWidth)
               ? minFieldWidth
@@ -107,14 +116,14 @@ class Menu extends StatelessWidget {
                               builder: (context) => CampagneMap(fiches: [
                                 Fiche(
                                     utilisateur: "Robert Chapeau",
-                                        campagne: '',
-                                        positionGps: m,
-                                        lieu: 'Auray la street',
-                                        dateHeure: DateTime(2017),
-                                        photos: ["assets/fleur.png"],
-                                        observation:
-                                            "Une petite observation très peu complète malheureusement Une petite observation très peu complète"),
-                                  ])),
+                                    campagne: '',
+                                    positionGps: m,
+                                    lieu: 'Auray la street',
+                                    dateHeure: DateTime(2017),
+                                    photos: ["assets/fleur.png"],
+                                    observation:
+                                    "Une petite observation très peu complète malheureusement Une petite observation très peu complète"),
+                              ])),
                         );
                       },
                     ),
@@ -130,7 +139,7 @@ class Menu extends StatelessWidget {
                             leading: Icon(Icons.login_outlined),
                             title: DefaultTextStyle.merge(
                               style:
-                                  const TextStyle(fontWeight: FontWeight.w500),
+                              const TextStyle(fontWeight: FontWeight.w500),
                               child: Text("Connexion"),
                             ),
                             onTap: () {
@@ -138,7 +147,7 @@ class Menu extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const Authentification()),
+                                    const Authentification()),
                               );
                             },
                           ),
@@ -154,7 +163,7 @@ class Menu extends StatelessWidget {
                             leading: Icon(Icons.account_circle_outlined),
                             title: DefaultTextStyle.merge(
                               style:
-                                  const TextStyle(fontWeight: FontWeight.w500),
+                              const TextStyle(fontWeight: FontWeight.w500),
                               child: Text("Profil"),
                             ),
                             onTap: () {
