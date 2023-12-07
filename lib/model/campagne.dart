@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Campagne {
   String? id;
-  int user;
+  String utilisateur;
   String titre;
   DateTime dateDebut, dateFin;
   String description;
@@ -11,7 +11,7 @@ class Campagne {
 
   Campagne(
       {this.id,
-      required this.user,
+      required this.utilisateur,
       required this.titre,
       required this.dateDebut,
       required this.dateFin,
@@ -25,7 +25,7 @@ class Campagne {
     final data = snapshot.data()!;
     return Campagne(
       id: snapshot.reference.id,
-      user: data['user'],
+      utilisateur: data['user'],
       titre: data['titre'],
       dateDebut: data['dateDebut'],
       dateFin: data['dateFin'],
@@ -38,7 +38,7 @@ class Campagne {
   Map<String, dynamic> toFirestore() {
     return {
       if (id != null) "id": id,
-      "user": user,
+      "user": utilisateur,
       "titre": titre,
       "dateDebut": dateDebut,
       "dateFin": dateFin,

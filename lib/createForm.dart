@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart' as osm;
 import 'package:geocoding/geocoding.dart';
 
-import 'formList.dart';
+import 'package:project_ofb/formList.dart';
+import 'package:project_ofb/model/fiche.dart';
 
 class CreateForm extends StatefulWidget {
   const CreateForm({super.key});
@@ -14,7 +16,7 @@ class CreateForm extends StatefulWidget {
   State<CreateForm> createState() => _CreateFormState();
 }
 
-class _CreateFormState extends State<CreateForm> with OSMMixinObserver {
+class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
   final _formKey = GlobalKey<FormState>();
 
   double? _lat, _lon;
@@ -33,9 +35,9 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver {
   final utilisateurs = [1, 2, 3];
   final campagne = 1;
 
-  MapController controller = MapController(
-    initPosition: GeoPoint(latitude: 48.083328, longitude: -1.68333),
-    areaLimit: BoundingBox(
+  osm.MapController controller = osm.MapController(
+    initPosition: osm.GeoPoint(latitude: 48.083328, longitude: -1.68333),
+    areaLimit: osm.BoundingBox(
       east: 10.4922941,
       north: 47.8084648,
       south: 45.817995,
@@ -184,39 +186,39 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver {
                               width: (screenSize.width / 2 < minFieldWidth)
                                   ? minFieldWidth
                                   : screenSize.width / 2,
-                              child: OSMFlutter(
+                              child: osm.OSMFlutter(
                                 controller: controller,
-                                osmOption: OSMOption(
-                                  userTrackingOption: const UserTrackingOption(
+                                osmOption: osm.OSMOption(
+                                  userTrackingOption: const osm.UserTrackingOption(
                                     enableTracking: true,
                                     unFollowUser: false,
                                   ),
-                                  zoomOption: const ZoomOption(
+                                  zoomOption: const osm.ZoomOption(
                                     initZoom: 8,
                                     minZoomLevel: 3,
                                     maxZoomLevel: 19,
                                     stepZoom: 1.0,
                                   ),
-                                  userLocationMarker: UserLocationMaker(
-                                    personMarker: const MarkerIcon(
+                                  userLocationMarker: osm.UserLocationMaker(
+                                    personMarker: const osm.MarkerIcon(
                                       icon: Icon(
                                         Icons.location_history_rounded,
                                         color: Colors.red,
                                         size: 48,
                                       ),
                                     ),
-                                    directionArrowMarker: const MarkerIcon(
+                                    directionArrowMarker: const osm.MarkerIcon(
                                       icon: Icon(
                                         Icons.double_arrow,
                                         size: 48,
                                       ),
                                     ),
                                   ),
-                                  roadConfiguration: const RoadOption(
+                                  roadConfiguration: const osm.RoadOption(
                                     roadColor: Colors.yellowAccent,
                                   ),
-                                  markerOption: MarkerOption(
-                                    defaultMarker: const MarkerIcon(
+                                  markerOption: osm.MarkerOption(
+                                    defaultMarker: const osm.MarkerIcon(
                                       icon: Icon(
                                         Icons.person_pin_circle,
                                         color: Colors.blue,
@@ -273,15 +275,15 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver {
   }
 
   @override
-  void onSingleTap(GeoPoint position) {
+  void onSingleTap(osm.GeoPoint position) {
     super.onSingleTap(position);
     if (_lat != null) {
-      controller.removeMarker(GeoPoint(latitude: _lat!, longitude: _lon!));
+      controller.removeMarker(osm.GeoPoint(latitude: _lat!, longitude: _lon!));
     }
     _lat = position.latitude;
     _lon = position.longitude;
     controller.addMarker(
-        GeoPoint(latitude: position.latitude, longitude: position.longitude));
+        osm.GeoPoint(latitude: position.latitude, longitude: position.longitude));
   }
 
   Future<void> _pickImages() async {
@@ -301,5 +303,14 @@ class _CreateFormState extends State<CreateForm> with OSMMixinObserver {
     }
 
     setState(() {});
+  }
+
+  void _insertForm(Fiche f) {
+    FirebaseFirestore.instance
+        .collection('forms')
+        .add(f.toFirestore())
+        .then((value) => print('Inserted campaign $value.'))
+        .catchError(
+            (err) => print('ERROR: Could not insert form $f: $err'));
   }
 }

@@ -149,9 +149,8 @@ class Menu extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => CampagneMap(fiches: [
                                     Fiche(
-                                        user: "Robert Chapeau",
-                                        campagne: 0,
-                                        utilisateur: 0,
+                                        utilisateur: "Robert Chapeau",
+                                        campagne: '',
                                         positionGps: m,
                                         lieu: 'Auray la street',
                                         dateHeure: DateTime(2017),

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:project_ofb/model/appModel.dart';
+import 'package:project_ofb/register.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -174,6 +175,27 @@ class _AuthentificationState extends State<Authentification> {
                           }
                         },
                         child: const Text('Connexion'),
+                      ),
+                    ),
+                  ),
+
+                  // Créer un compte
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 50, horizontal: 30),
+                    child: SizedBox(
+                      width: double.infinity, // <-- match_parent
+                      // height: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12), // <-- Radius
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
+                        },
+                        child: const Text('Créer un compte'),
                       ),
                     ),
                   ),

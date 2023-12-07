@@ -63,7 +63,7 @@ class _ShowFormState extends State<ShowForm> {
                       child: Row(
                         children: [
                           Icon(Icons.person_outline),
-                          Text(widget.fiche.user)
+                          Text(widget.fiche.utilisateur)
                         ],
                       )),
                   Padding(
