@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:project_ofb/createCampaign.dart';
 import 'package:project_ofb/widgets/displayCampaign.dart';
 import 'package:project_ofb/widgets/menu.dart';
+import 'package:provider/provider.dart';
 
+import 'model/appModel.dart';
 import 'model/campagne.dart';
 
 void main() {
@@ -22,18 +24,25 @@ class _CampaignListState extends State<CampaignList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50))),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CreateCampaign()),
+        floatingActionButton:
+            Consumer<AppModel>(builder: (context, app, child) {
+          if (app.loggedUser != null) {
+            return FloatingActionButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50))),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CreateCampaign()),
+                );
+              },
+              tooltip: 'Créer une nouvelle campagne',
+              child: Icon(Icons.add_outlined),
             );
-          },
-          tooltip: 'Créer une nouvelle campagne',
-          child: Icon(Icons.add_outlined),
-        ),
+          } else {
+            return Container(); // Permet de ne rien afficher
+          }
+        }),
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text("Liste des campagnes"),

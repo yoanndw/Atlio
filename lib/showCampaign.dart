@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project_ofb/createForm.dart';
-import 'package:project_ofb/widgets/displayProfilesFiles.dart';
 import 'package:project_ofb/widgets/menu.dart';
+import 'package:provider/provider.dart';
 
+import 'model/appModel.dart';
 import 'model/campagne.dart';
-import 'model/fiche.dart';
 
 class ShowCampaign extends StatefulWidget {
   final Campagne campagne;
@@ -24,18 +24,25 @@ class _ShowCampaignState extends State<ShowCampaign> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50))),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CreateForm()),
+        floatingActionButton:
+            Consumer<AppModel>(builder: (context, app, child) {
+          if (app.loggedUser != null) {
+            return FloatingActionButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50))),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CreateForm()),
+                );
+              },
+              tooltip: 'Créer une nouvelle fiche',
+              child: Icon(Icons.add_outlined),
             );
-          },
-          tooltip: 'Créer une nouvelle fiche',
-          child: Icon(Icons.add_outlined),
-        ),
+          } else {
+            return Container(); // Permet de ne rien afficher
+          }
+        }),
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
