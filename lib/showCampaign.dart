@@ -39,7 +39,7 @@ class _ShowCampaignState extends State<ShowCampaign> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CreateForm()),
+                MaterialPageRoute(builder: (context) => CreateForm(campagne: widget.campagne.getId())),
               );
             },
             tooltip: 'Créer une nouvelle fiche',
@@ -95,28 +95,28 @@ class _ShowCampaignState extends State<ShowCampaign> {
                     //         observation:
                     //         "Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement ")),
 
-                    DisplayFiles(
-                      fiche: Fiche(
-                          utilisateur: "Robert Chapeau",
-                          campagne: 'Ressourcement de biches',
-                          positionGps: m,
-                          lieu: 'Rennes',
-                          dateHeure: DateTime(2017),
-                          photos: [
-                            "https://static.apidae-tourisme.com/filestore/objets-touristiques/images/1/44/9513985-diaporama.jpg"
-                          ],
-                          observation: "Une biche dans la forêt"),
-                    ),
-                    DisplayFiles(
-                      fiche: Fiche(
-                          utilisateur: "Camille Kaoliu",
-                          campagne: 'Ressourcement de sangliers',
-                          positionGps: m2,
-                          lieu: 'Vitré',
-                          dateHeure: DateTime(2019),
-                          photos: ["https://www.rustica.fr/images/sanglier-foret.jpg"],
-                          observation: "Une biche dans la forêt"),
-                    ),
+                    // DisplayFiles(
+                    //   fiche: Fiche(
+                    //       utilisateur: "Robert Chapeau",
+                    //       campagne: 'Ressourcement de biches',
+                    //       positionGps: m,
+                    //       lieu: 'Rennes',
+                    //       dateHeure: DateTime(2017),
+                    //       photos: [
+                    //         "https://static.apidae-tourisme.com/filestore/objets-touristiques/images/1/44/9513985-diaporama.jpg"
+                    //       ],
+                    //       observation: "Une biche dans la forêt"),
+                    // ),
+                    // DisplayFiles(
+                    //   fiche: Fiche(
+                    //       utilisateur: "Camille Kaoliu",
+                    //       campagne: 'Ressourcement de sangliers',
+                    //       positionGps: m2,
+                    //       lieu: 'Vitré',
+                    //       dateHeure: DateTime(2019),
+                    //       photos: ["https://www.rustica.fr/images/sanglier-foret.jpg"],
+                    //       observation: "Une biche dans la forêt"),
+                    // ),
                     // TODO supprimer la fiche est mettre une boucle foreach pour afficher la liste de fiches
                     // DisplayFiles(
                     //     fiche: Fiche(
@@ -142,26 +142,26 @@ class _ShowCampaignState extends State<ShowCampaign> {
                     MaterialPageRoute(
                         builder: (context) => CampagneMap(
                               fiches: [
-                                Fiche(
-                                    utilisateur: "Robert Chapeau",
-                                    campagne: '',
-                                    positionGps: m,
-                                    lieu: 'Auray la street',
-                                    dateHeure: DateTime(2017),
-                                    photos: [
-                                      "https://static.apidae-tourisme.com/filestore/objets-touristiques/images/1/44/9513985-diaporama.jpg"
-                                    ],
-                                    observation:
-                                        "Une petite observation très peu complète malheureusement Une petite observation très peu complète"),
-                                Fiche(
-                                    utilisateur: "Robert Chapeau",
-                                    campagne: '',
-                                    positionGps: m2,
-                                    lieu: 'Auray la rue',
-                                    dateHeure: DateTime(2019),
-                                    photos: ["https://www.rustica.fr/images/sanglier-foret.jpg"],
-                                    observation:
-                                        "Une 2e petite observation très peu complète malheureusement Une petite observation très peu complète"),
+                                // Fiche(
+                                //     utilisateur: "Robert Chapeau",
+                                //     campagne: '',
+                                //     positionGps: m,
+                                //     lieu: 'Auray la street',
+                                //     dateHeure: DateTime(2017),
+                                //     photos: [
+                                //       "https://static.apidae-tourisme.com/filestore/objets-touristiques/images/1/44/9513985-diaporama.jpg"
+                                //     ],
+                                //     observation:
+                                //         "Une petite observation très peu complète malheureusement Une petite observation très peu complète"),
+                                // Fiche(
+                                //     utilisateur: "Robert Chapeau",
+                                //     campagne: '',
+                                //     positionGps: m2,
+                                //     lieu: 'Auray la rue',
+                                //     dateHeure: DateTime(2019),
+                                //     photos: ["https://www.rustica.fr/images/sanglier-foret.jpg"],
+                                //     observation:
+                                //         "Une 2e petite observation très peu complète malheureusement Une petite observation très peu complète"),
                               ],
                             )),
                   );

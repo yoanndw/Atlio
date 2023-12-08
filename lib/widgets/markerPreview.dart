@@ -39,17 +39,17 @@ class MarkerPreview extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (fiche.photos.isNotEmpty)
-                  Image.network(
-                    // TODO Use user image
-                    fiche.photos[0],
-                    width: 70,
-                    height: 70,
-                    fit: BoxFit.cover,
-                  )
-                else
-                  const Icon(Icons.insert_photo_outlined,
-                      size: 70, color: Colors.grey),
+                // if (fiche.photos.isNotEmpty)
+                //   Image.network(
+                //     // TODO Use user image
+                //     fiche.photos[0],
+                //     width: 70,
+                //     height: 70,
+                //     fit: BoxFit.cover,
+                //   )
+                // else
+                //   const Icon(Icons.insert_photo_outlined,
+                //       size: 70, color: Colors.grey),
               ],
             ),
           ),

@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 
 class Fiche {
   String? id;
   Map<String, double> positionGps; // { "lat": X, "lon": Y }
   String lieu;
   DateTime dateHeure;
-  List<String> photos = [];
-  String observation;
+  List<Uint8List> photos = [];
+  String? observation;
   String campagne, utilisateur;
 
   Fiche(
@@ -17,7 +18,7 @@ class Fiche {
       required this.lieu,
       required this.dateHeure,
       required this.photos,
-      required this.observation});
+      this.observation});
 
   factory Fiche.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,

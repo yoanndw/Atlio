@@ -1,13 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart' as osm;
 import 'package:geocoding/geocoding.dart';
+import 'package:provider/provider.dart';
+
 import 'package:project_ofb/formList.dart';
+import 'package:project_ofb/model/appModel.dart';
 import 'package:project_ofb/model/fiche.dart';
 
 class CreateForm extends StatefulWidget {
-  const CreateForm({super.key});
+  final String campagne;
+
+  CreateForm({super.key, required this.campagne});
 
   @override
   State<CreateForm> createState() => _CreateFormState();
@@ -21,9 +27,9 @@ class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
   final DateTime _dateHeure = DateTime.timestamp();
 
   String? _observation;
-  int? _campagne, _utilisateur;
 
-  List<Widget> _imagePreviews = [];
+  List<Image> _imagePreviews = [];
+  List<PlatformFile> _imageFiles = [];
 
   bool _isMapVisible = true; // État pour suivre la visibilité de la carte
 
@@ -48,6 +54,44 @@ class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
     super.initState();
   }
 
+  void _insertForm() async {
+    List<Uint8List> imagesStr = _imageFiles.map((e) => e.bytes!).toList();
+
+    final user = await _getUserId();
+
+    _updateLocation();
+    final form = Fiche(campagne: widget.campagne,
+        utilisateur: user,
+        positionGps: { 'lat': _lat!, 'lon': _lon!},
+        lieu: _lieu!,
+        dateHeure: _dateHeure,
+        photos: imagesStr,
+        observation: _observation);
+
+
+    FirebaseFirestore.instance
+        .collection('forms')
+        .add(form.toFirestore())
+        .then((value) => print('Inserted form $value.'))
+        .catchError(
+            (err) => print('ERROR: Could not insert form $form: $err'));
+  }
+
+  Future<String> _getUserId() async {
+    final userSnap = await FirebaseFirestore.instance
+        .collection("users")
+        .where('email', isEqualTo: Provider
+        .of<AppModel>(context, listen: false)
+        .loggedUser!
+        .user!
+        .email!).get();
+
+    // print('email ${Provider.of<AppModel>(context, listen: false).loggedUser!.user!.email}\ngetuser: ${userSnap.docs}');
+
+    return userSnap.docs.first.reference.id;
+  }
+
+
   void _updateLocation() async {
     final lieux = await placemarkFromCoordinates(_lat!, _lon!);
     setState(() {
@@ -60,18 +104,23 @@ class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
       hintText: hintText,
       hintStyle: const TextStyle(color: Colors.black87),
       contentPadding:
-          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
       border: InputBorder.none,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
+    Size screenSize = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .inversePrimary,
         title: const Text("Création d'une nouvelle fiche."),
       ),
       body: Container(
@@ -187,7 +236,8 @@ class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
                               child: osm.OSMFlutter(
                                 controller: controller,
                                 osmOption: osm.OSMOption(
-                                  userTrackingOption: const osm.UserTrackingOption(
+                                  userTrackingOption: const osm
+                                      .UserTrackingOption(
                                     enableTracking: true,
                                     unFollowUser: false,
                                   ),
@@ -254,6 +304,7 @@ class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
                   ),
                 );
               } else {
+                _insertForm();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const FormList()),
@@ -281,7 +332,8 @@ class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
     _lat = position.latitude;
     _lon = position.longitude;
     controller.addMarker(
-        osm.GeoPoint(latitude: position.latitude, longitude: position.longitude));
+        osm.GeoPoint(
+            latitude: position.latitude, longitude: position.longitude));
   }
 
   Future<void> _pickImages() async {
@@ -294,6 +346,7 @@ class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
     if (result != null && result.files.isNotEmpty) {
       _imagePreviews.clear();
       for (PlatformFile file in result.files) {
+        _imageFiles.add(file);
         _imagePreviews.add(
           Image.memory(file.bytes!, width: 100, height: 100),
         );
@@ -301,14 +354,5 @@ class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
     }
 
     setState(() {});
-  }
-
-  void _insertForm(Fiche f) {
-    FirebaseFirestore.instance
-        .collection('forms')
-        .add(f.toFirestore())
-        .then((value) => print('Inserted campaign $value.'))
-        .catchError(
-            (err) => print('ERROR: Could not insert form $f: $err'));
   }
 }

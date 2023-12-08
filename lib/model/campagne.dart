@@ -19,6 +19,8 @@ class Campagne {
       required this.territoire,
       required this.groupesTaxonomiques});
 
+  String getId() => id!;
+
   factory Campagne.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
