@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_ofb/widgets/menu.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart' as osm;
+import 'package:project_ofb/widgets/menu.dart';
 
 import 'model/fiche.dart';
 
@@ -41,7 +41,7 @@ class _ShowFormState extends State<ShowForm> with osm.OSMMixinObserver{
           children: [
             SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                       height: 200,

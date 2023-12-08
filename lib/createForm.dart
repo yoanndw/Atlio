@@ -124,7 +124,7 @@ class _CreateFormState extends State<CreateForm> with osm.OSMMixinObserver {
                         ),
                         ElevatedButton(
                           onPressed: _pickImages,
-                          child: const Text('Select images'),
+                          child: const Text('Sélectionner ces images'),
                         ),
                         const SizedBox(
                           height: 16,
