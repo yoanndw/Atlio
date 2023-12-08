@@ -46,7 +46,7 @@ class _ShowFormState extends State<ShowForm> with osm.OSMMixinObserver{
                   Container(
                       height: 200,
                       width: double.infinity,
-                      child: Image.asset(widget.fiche.photos.elementAt(0))),
+                      child: Image.network(widget.fiche.photos.elementAt(0))),
                   Padding(
                       padding: EdgeInsets.only(left: 15, right: 15, top: 10),
                       child: Row(
@@ -82,9 +82,9 @@ class _ShowFormState extends State<ShowForm> with osm.OSMMixinObserver{
                       )),
                   Padding(
                     padding: EdgeInsets.only(left: 15, right: 15, top: 10),
-                    child: Flexible(
-                        child: Text(widget.fiche.observation,
-                            textAlign: TextAlign.justify)),
+                    //   child: Flexible(
+                    //       child: Text(widget.fiche.observation,
+                    //           textAlign: TextAlign.justify)),
                   ),
                   Container(
                       decoration: BoxDecoration(

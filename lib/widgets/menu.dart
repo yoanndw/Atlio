@@ -1,14 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_ofb/homePage.dart';
-import 'package:project_ofb/model/fiche.dart';
 import 'package:project_ofb/profile.dart';
 import 'package:project_ofb/widgets/authentification.dart';
 import 'package:provider/provider.dart';
 
 import '../campaignList.dart';
 import '../createCampaign.dart';
-import '../map.dart';
 import '../model/appModel.dart';
 import '../model/constants.dart';
 
@@ -110,38 +108,6 @@ class _MenuState extends State<Menu> {
                       ),
                     );
                   }),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: ListTile(
-                      title: const Text('MAP'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CampagneMap(fiches: [
-                                Fiche(
-                                    utilisateur: "Robert Chapeau",
-                                    campagne: '',
-                                    positionGps: m,
-                                    lieu: 'Auray la street',
-                                    dateHeure: DateTime(2017),
-                                    photos: ["assets/fleur.png"],
-                                    observation:
-                                    "Une petite observation très peu complète malheureusement Une petite observation très peu complète"),
-                                Fiche(
-                                    utilisateur: "Robert Chapeau",
-                                    campagne: '',
-                                    positionGps: m2,
-                                    lieu: 'Auray la rue',
-                                    dateHeure: DateTime(2019),
-                                    photos: ["assets/fox.png"],
-                                    observation:
-                                    "Une 2e petite observation très peu complète malheureusement Une petite observation très peu complète"),
-                              ])),
-                        );
-                      },
-                    ),
-                  ),
                 ]),
                 Consumer<AppModel>(builder: (context, app, child) {
                   if (app.loggedUser == null) {
