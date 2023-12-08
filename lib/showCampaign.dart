@@ -24,6 +24,8 @@ class _ShowCampaignState extends State<ShowCampaign> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
         floatingActionButton:
             Consumer<AppModel>(builder: (context, app, child) {
@@ -57,13 +59,27 @@ class _ShowCampaignState extends State<ShowCampaign> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.campagne.titre),
         ),
-        body: Stack(
+        body: Container(
+    // Set the background image
+    height: screenSize.height,
+    decoration: const BoxDecoration(
+    image: DecorationImage(
+    image: AssetImage('assets/savane.png'),
+    fit: BoxFit.cover,
+    ),
+    ), child :Stack(
           children: [
             SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white70,
+                  border: Border.all(color: Colors.black),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
                       padding: EdgeInsets.only(left: 15, right: 15, top: 10),
                       child: Row(
                         children: [
@@ -72,8 +88,9 @@ class _ShowCampaignState extends State<ShowCampaign> {
                               1,
                               widget.campagne.territoire.toString().length - 1))
                         ],
-                      )),
-                  Padding(
+                      ),
+                    ),
+                    Padding(
                       padding: EdgeInsets.only(left: 15, right: 15, top: 10),
                       child: Row(
                         children: [
@@ -91,53 +108,62 @@ class _ShowCampaignState extends State<ShowCampaign> {
                               "/" +
                               widget.campagne.dateFin.year.toString())
                         ],
-                      )),
-                  Padding(
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(left: 15, right: 15, top: 10),
+                        child: Row(
+                          children: [
+                            Icon(Icons.group_work_outlined),
+                            Text(widget.campagne.groupesTaxonomiques
+                                .toString()
+                                .substring(
+                                    1,
+                                    widget.campagne.groupesTaxonomiques
+                                            .toString()
+                                            .length -
+                                        1))
+                          ],
+                        )),
+                    Padding(
                       padding: EdgeInsets.only(left: 15, right: 15, top: 10),
-                      child: Row(
-                        children: [
-                          Icon(Icons.group_work_outlined),
-                          Text(widget.campagne.groupesTaxonomiques
-                              .toString()
-                              .substring(
-                              1,
-                              widget.campagne.groupesTaxonomiques
-                                  .toString()
-                                  .length -
-                                  1))
-                        ],
-                      )),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15, right: 15, top: 10),
-                    child: Flexible(
-                        child: Text(widget.campagne.description,
-                            textAlign: TextAlign.justify)),
-                  ),
-                  // TODO supprimer la fiche est mettre une boucle foreach pour afficher la liste de fiches
-                  // DisplayFiles(
-                  //     fiche: Fiche(
-                  //         utilisateur: "Robert Chapeau",
-                  //         campagne: '',
-                  //         positionGps: {},
-                  //         lieu: 'Auray la street',
-                  //         dateHeure: DateTime(2017),
-                  //         photos: images,
-                  //         observation:
-                  //         "Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement ")),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CampagneMap(fiches: [],)),
-                      );
-                    },
-                    child: Text('Afficher la carte'),
-                  ),
-                ],
+                      child: Flexible(
+                          child: Text(widget.campagne.description,
+                              textAlign: TextAlign.justify)),
+                    ),
+                    // TODO supprimer la fiche est mettre une boucle foreach pour afficher la liste de fiches
+                    // DisplayFiles(
+                    //     fiche: Fiche(
+                    //         utilisateur: "Robert Chapeau",
+                    //         campagne: '',
+                    //         positionGps: {},
+                    //         lieu: 'Auray la street',
+                    //         dateHeure: DateTime(2017),
+                    //         photos: images,
+                    //         observation:
+                    //         "Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement Une petite observation très peu complète malheureusement ")),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 10.0,
+              right: 10.0,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CampagneMap(
+                              fiches: [],
+                            )),
+                  );
+                },
+                child: Text('Afficher la carte'),
               ),
             ),
             Menu(isMenuOpen: _isMenuOpen),
           ],
-        ));
+        )),);
   }
 }
