@@ -66,7 +66,7 @@ class DisplayFiles extends StatelessWidget {
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
-                child: Text('Nom de la campagne'),
+                child: Text(fiche.campagne),
               ),
               Row(
                 children: [
@@ -76,13 +76,18 @@ class DisplayFiles extends StatelessWidget {
                         style: const TextStyle(
                           color: Colors.black87,
                         ),
-                        child: Text("Lieu")),
+                        child: Text(fiche.lieu)),
                   ),
                   DefaultTextStyle.merge(
-                      style: const TextStyle(
-                        color: Colors.black87,
-                      ),
-                      child: Text("Date et heure"))
+                    style: const TextStyle(
+                      color: Colors.black87,
+                    ),
+                    child: Text(fiche.dateHeure.day.toString() +
+                        "/" +
+                        fiche.dateHeure.month.toString() +
+                        "/" +
+                        fiche.dateHeure.year.toString()),
+                  )
                 ],
               )
             ],
