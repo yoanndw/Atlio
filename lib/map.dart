@@ -56,10 +56,24 @@ class _CampagneMapState extends State<CampagneMap> /*with OSMMixinObserver*/ {
 
   MapController controller = MapController();
   late final PopupController _popupController;
+  bool _isMenuOpen = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            setState(() {
+              _isMenuOpen = !_isMenuOpen;
+            });
+          },
+          icon: const Icon(Icons.menu),
+          tooltip: 'Menu',
+        ),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text('Carte'),
+      ),
       body: FlutterMap(
         options: MapOptions(
           initialZoom: 5.0,
