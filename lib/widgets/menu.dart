@@ -1,14 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_ofb/homePage.dart';
-import 'package:project_ofb/model/fiche.dart';
 import 'package:project_ofb/profile.dart';
 import 'package:project_ofb/widgets/authentification.dart';
 import 'package:provider/provider.dart';
 
 import '../campaignList.dart';
 import '../createCampaign.dart';
-import '../map.dart';
 import '../model/appModel.dart';
 import '../model/constants.dart';
 
@@ -26,6 +24,7 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
 
   Map<String, double> m = {"lat": 48.117266, "lon": -1.6777926};
+  Map<String, double> m2 = {"lat": 48.117266, "lon": -1.1777926};
   final _formKey = GlobalKey<FormState>();
   UserCredential? _user;
 
@@ -109,29 +108,6 @@ class _MenuState extends State<Menu> {
                       ),
                     );
                   }),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: ListTile(
-                      title: const Text('MAP'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CampagneMap(fiches: [
-                                Fiche(
-                                    utilisateur: "Robert Chapeau",
-                                    campagne: '',
-                                    positionGps: m,
-                                    lieu: 'Auray la street',
-                                    dateHeure: DateTime(2017),
-                                    photos: ["assets/fleur.png"],
-                                    observation:
-                                    "Une petite observation très peu complète malheureusement Une petite observation très peu complète"),
-                              ])),
-                        );
-                      },
-                    ),
-                  ),
                 ]),
                 Consumer<AppModel>(builder: (context, app, child) {
                   if (app.loggedUser == null) {

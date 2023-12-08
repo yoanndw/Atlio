@@ -118,15 +118,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: Image.asset(
-              'assets/logo.png',
-              width: 100,
-              height: 100,
-            ),
-          ),
           Menu(isMenuOpen: _isMenuOpen)
         ],
       ),
