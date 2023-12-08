@@ -42,7 +42,6 @@ class _CampaignListState extends State<CampaignList> {
 
   @override
   Widget build(BuildContext context) {
-    print('list build: $_campaigns');
     ListView listView = (_campaigns == null)
         ? ListView()
         : ListView.builder(

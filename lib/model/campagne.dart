@@ -25,7 +25,7 @@ class Campagne {
     final data = snapshot.data()!;
 
     print('id: ${snapshot.reference.id}');
-    print('createur: ${data['user']}');
+    print('createur: ${data['createur']}');
     print('titre: ${data['titre']}');
     print('dateDebut: ${data['dateDebut']}');
     print('dateFin: ${data['dateFin']}');
@@ -35,13 +35,13 @@ class Campagne {
 
     return Campagne(
       id: snapshot.reference.id,
-      createur: data['user'],
+      createur: data['createur'],
       titre: data['titre'],
-      dateDebut: data['dateDebut'],
-      dateFin: data['dateFin'],
+      dateDebut: (data['dateDebut'] as Timestamp).toDate(),
+      dateFin: (data['dateFin'] as Timestamp).toDate(),
       description: data['description'],
-      territoire: data['territoire'],
-      groupesTaxonomiques: data['groupesTaxonomiques'],
+      territoire: List.from(data['territoire']),
+      groupesTaxonomiques: List.from(data['groupesTaxonomiques']),
     );
   }
 
@@ -49,8 +49,8 @@ class Campagne {
     return {
       "createur": createur,
       "titre": titre,
-      "dateDebut": dateDebut,
-      "dateFin": dateFin,
+      "dateDebut": Timestamp.fromDate(dateDebut),
+      "dateFin": Timestamp.fromDate(dateFin),
       "description": description,
       "territoire": territoire,
       "groupesTaxonomiques": groupesTaxonomiques,

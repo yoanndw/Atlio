@@ -2,8 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:project_ofb/campaignList.dart';
+import 'package:project_ofb/model/appModel.dart';
 import 'package:project_ofb/model/campagne.dart';
+import 'package:project_ofb/model/utilisateur.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const CreateCampaign());
@@ -108,8 +112,22 @@ class _CreateCampaignState extends State<CreateCampaign> {
       dateFin = args.value.endDate;
     }
   }
+  
+  Future<String> _getUserId() async {
+    final userSnap = await FirebaseFirestore.instance
+        .collection("users")
+        .where('email', isEqualTo: Provider.of<AppModel>(context, listen: false).loggedUser!.user!.email!).get();
 
-  void _insertCampaign(Campagne c) {
+    // print('email ${Provider.of<AppModel>(context, listen: false).loggedUser!.user!.email}\ngetuser: ${userSnap.docs}');
+
+    return userSnap.docs.first.reference.id;
+  }
+
+  void _insertCampaign(Campagne c) async {
+    final user = await _getUserId();
+    c.createur = user;
+    print('createur id $user');
+
     FirebaseFirestore.instance
         .collection('campaigns')
         .add(c.toFirestore())
