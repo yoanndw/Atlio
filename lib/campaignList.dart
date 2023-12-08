@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_ofb/createCampaign.dart';
 import 'package:project_ofb/widgets/displayCampaign.dart';
@@ -20,12 +21,38 @@ class CampaignList extends StatefulWidget {
 
 class _CampaignListState extends State<CampaignList> {
   bool _isMenuOpen = false;
+  List<Campagne>? _campaigns;
+
+  @override
+  void initState() {
+    super.initState();
+
+    FirebaseFirestore.instance.collection("campaigns").get().then((value) {
+      setState(() {
+        _campaigns =
+            value.docs.map((e) {
+              print('fetched ${e.data()}');
+              return Campagne.fromFirestore(e, null);
+            }).toList();
+      });
+    }).catchError((err) {
+      print('[ERROR FETCHING DB] Could not load campaigns: $err');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    print('list build: $_campaigns');
+    ListView listView = (_campaigns == null)
+        ? ListView()
+        : ListView.builder(
+        itemBuilder: (context, index) =>
+            DisplayCampaign(campagne: _campaigns![index]),
+        itemCount: _campaigns!.length);
+
     return Scaffold(
         floatingActionButton:
-            Consumer<AppModel>(builder: (context, app, child) {
+        Consumer<AppModel>(builder: (context, app, child) {
           if (app.loggedUser != null) {
             return FloatingActionButton(
               shape: RoundedRectangleBorder(
@@ -44,7 +71,10 @@ class _CampaignListState extends State<CampaignList> {
           }
         }),
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          backgroundColor: Theme
+              .of(context)
+              .colorScheme
+              .inversePrimary,
           title: Text("Liste des campagnes"),
           leading: IconButton(
             onPressed: () {
@@ -59,110 +89,17 @@ class _CampaignListState extends State<CampaignList> {
         body: Stack(children: [
           Container(
             // Set the background image
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/fleur.png'),
                 fit: BoxFit.cover,
               ),
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  DisplayCampaign(
-                      campagne: Campagne(
-                    titre: "Camp 1",
-                    dateDebut: DateTime(2017),
-                    dateFin: DateTime(2018),
-                    description: "Bonjour description",
-                    territoire: ["Rennes, Paris"],
-                    groupesTaxonomiques: ["Renards", "Abeilles"],
-                    utilisateur: 'uihkuh',
-                  )),
-                  // DisplayCampaign(
-                  //     campagne: Campagne(
-                  //   titre: "Camp 1",
-                  //   dateDebut: DateTime(2017),
-                  //   dateFin: DateTime(2018),
-                  //   description: "Bonjour description",
-                  //   territoire: ["Rennes, Paris"],
-                  //   groupesTaxonomiques: ["Renards", "Abeilles"],
-                  // )),
-                  // DisplayCampaign(
-                  //     campagne: Campagne(
-                  //   titre: "Camp 1",
-                  //   dateDebut: DateTime(2017),
-                  //   dateFin: DateTime(2018),
-                  //   description: "Bonjour description",
-                  //   territoire: ["Rennes, Paris"],
-                  //   groupesTaxonomiques: ["Renards", "Abeilles"],
-                  // )),
-                  // DisplayCampaign(
-                  //     campagne: Campagne(
-                  //   titre: "Camp 1",
-                  //   dateDebut: DateTime(2017),
-                  //   dateFin: DateTime(2018),
-                  //   description: "Bonjour description",
-                  //   territoire: ["Rennes, Paris"],
-                  //   groupesTaxonomiques: ["Renards", "Abeilles"],
-                  // )),
-                  // DisplayCampaign(
-                  //     campagne: Campagne(
-                  //   titre: "Camp 1",
-                  //   dateDebut: DateTime(2017),
-                  //   dateFin: DateTime(2018),
-                  //   description: "Bonjour description",
-                  //   territoire: ["Rennes, Paris"],
-                  //   groupesTaxonomiques: ["Renards", "Abeilles"],
-                  // )),
-                  // DisplayCampaign(
-                  //     campagne: Campagne(
-                  //   titre: "Camp 1",
-                  //   dateDebut: DateTime(2017),
-                  //   dateFin: DateTime(2018),
-                  //   description: "Bonjour description",
-                  //   territoire: ["Rennes, Paris"],
-                  //   groupesTaxonomiques: ["Renards", "Abeilles"],
-                  // )),
-                  // DisplayCampaign(
-                  //     campagne: Campagne(
-                  //   titre: "Camp 1",
-                  //   dateDebut: DateTime(2017),
-                  //   dateFin: DateTime(2018),
-                  //   description: "Bonjour description",
-                  //   territoire: ["Rennes, Paris"],
-                  //   groupesTaxonomiques: ["Renards", "Abeilles"],
-                  // )),
-                  // DisplayCampaign(
-                  //     campagne: Campagne(
-                  //   titre: "Camp 1",
-                  //   dateDebut: DateTime(2017),
-                  //   dateFin: DateTime(2018),
-                  //   description: "Bonjour description",
-                  //   territoire: ["Rennes, Paris"],
-                  //   groupesTaxonomiques: ["Renards", "Abeilles"],
-                  // )),
-                  // DisplayCampaign(
-                  //     campagne: Campagne(
-                  //   titre: "Camp 1",
-                  //   dateDebut: DateTime(2017),
-                  //   dateFin: DateTime(2018),
-                  //   description: "Bonjour description",
-                  //   territoire: ["Rennes, Paris"],
-                  //   groupesTaxonomiques: ["Renards", "Abeilles"],
-                  // )),
-                  // DisplayCampaign(
-                  //     campagne: Campagne(
-                  //   titre: "Camp 1",
-                  //   dateDebut: DateTime(2017),
-                  //   dateFin: DateTime(2018),
-                  //   description: "Bonjour description",
-                  //   territoire: ["Rennes, Paris"],
-                  //   groupesTaxonomiques: ["Renards", "Abeilles"],
-                  // )),
-                ],
-              ),
-            ),
+            child: listView,
           ),
           Menu(isMenuOpen: _isMenuOpen)
         ]));

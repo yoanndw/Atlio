@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Campagne {
   String? id;
-  String utilisateur;
+  String createur;
   String titre;
   DateTime dateDebut, dateFin;
   String description;
@@ -11,7 +11,7 @@ class Campagne {
 
   Campagne(
       {this.id,
-      required this.utilisateur,
+      required this.createur,
       required this.titre,
       required this.dateDebut,
       required this.dateFin,
@@ -23,9 +23,19 @@ class Campagne {
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     final data = snapshot.data()!;
+
+    print('id: ${snapshot.reference.id}');
+    print('createur: ${data['user']}');
+    print('titre: ${data['titre']}');
+    print('dateDebut: ${data['dateDebut']}');
+    print('dateFin: ${data['dateFin']}');
+    print('description: ${data['description']}');
+    print('territoire: ${data['territoire']}');
+    print('groupesTaxonomiques: ${data['groupesTaxonomiques']}');
+
     return Campagne(
       id: snapshot.reference.id,
-      utilisateur: data['user'],
+      createur: data['user'],
       titre: data['titre'],
       dateDebut: data['dateDebut'],
       dateFin: data['dateFin'],
@@ -37,7 +47,7 @@ class Campagne {
 
   Map<String, dynamic> toFirestore() {
     return {
-      "user": utilisateur,
+      "createur": createur,
       "titre": titre,
       "dateDebut": dateDebut,
       "dateFin": dateFin,

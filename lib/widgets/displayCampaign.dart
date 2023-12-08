@@ -10,11 +10,12 @@ class DisplayCampaign extends StatelessWidget {
   const DisplayCampaign({
     Key? key,
     required this.campagne,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     // TODO Image image = campagne.fiches.isNotEmpty ? campagne.fiches.elementAt(0).pho.
+    print('Display campaign: ${campagne.toFirestore()}');
 
     return ElevatedButton(
         style: ElevatedButton.styleFrom(

@@ -301,7 +301,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
                 // naviguer vers la prochaine page
 
                 _insertCampaign(Campagne(
-                  utilisateur: '',
+                  createur: '',
                   titre: titreController.text,
                   dateDebut: dateDebut,
                   dateFin: dateFin,
