@@ -26,6 +26,7 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
 
   Map<String, double> m = {"lat": 48.117266, "lon": -1.6777926};
+  Map<String, double> m2 = {"lat": 48.117266, "lon": -1.1777926};
   final _formKey = GlobalKey<FormState>();
   UserCredential? _user;
 
@@ -127,6 +128,15 @@ class _MenuState extends State<Menu> {
                                     photos: ["assets/fleur.png"],
                                     observation:
                                     "Une petite observation très peu complète malheureusement Une petite observation très peu complète"),
+                                Fiche(
+                                    utilisateur: "Robert Chapeau",
+                                    campagne: '',
+                                    positionGps: m2,
+                                    lieu: 'Auray la rue',
+                                    dateHeure: DateTime(2019),
+                                    photos: ["assets/fox.png"],
+                                    observation:
+                                    "Une 2e petite observation très peu complète malheureusement Une petite observation très peu complète"),
                               ])),
                         );
                       },
